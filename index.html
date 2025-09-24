@@ -6,212 +6,212 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Solicitação de Abertura de O.S. - AGROVALE</title>
     <style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 20px;
-        background-color: #f0f0f0;
-    }
-
-    .container {
-        width: 100%;
-        max-width: 1000px;
-        margin: 0 auto;
-        border: 1px solid #000;
-        padding: 10px;
-        background-color: #fff;
-    }
-
-    .header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        border-bottom: 2px solid #000;
-        padding-bottom: 5px;
-        margin-bottom: 10px;
-    }
-
-    .header-title {
-        text-align: center;
-        flex-grow: 1;
-    }
-
-    .header-title h2 {
-        margin: 0;
-        font-size: 20px;
-    }
-
-    .agrovvale-logo {
-        width: 150px;
-        height: auto;
-    }
-
-    .agrovvale-logo img {
-        max-width: 70%;
-        height: auto;
-        display: block;
-    }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-bottom: 10px;
-    }
-
-    table,
-    th,
-    td {
-        border: 1px solid #000;
-    }
-
-    th,
-    td {
-        padding: 5px;
-        text-align: left;
-        font-size: 12px;
-        vertical-align: top;
-    }
-
-    th {
-        background-color: #f2f2f2;
-        font-weight: normal;
-    }
-
-    input[type="text"],
-    select,
-    input[type="date"] {
-        width: 98%;
-        border: none;
-        outline: none;
-        padding: 2px;
-        box-sizing: border-box;
-    }
-    
-    .os-container select[multiple] {
-        height: 100px; /* Adjust height as needed */
-    }
-
-    .input-inline {
-        display: flex;
-        align-items: center;
-    }
-
-    .input-inline label {
-        white-space: nowrap;
-        margin-right: 5px;
-    }
-
-    .checkbox-group {
-        display: flex;
-        gap: 15px;
-        align-items: center;
-    }
-
-    .checkbox-group div {
-        display: flex;
-        align-items: center;
-        gap: 5px;
-    }
-
-    .full-width-cell {
-        width: 100%;
-    }
-
-    .os-container {
-        border: 1px solid #000;
-        padding: 10px;
-        margin-bottom: 20px;
-        background-color: #fff;
-        position: relative;
-    }
-
-    /* Estilos para a impressão */
-    @media print {
         body {
-            /* Definindo a escala de 70% */
-            zoom: 55%;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
         }
 
-        .no-print {
-            display: none;
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            border: 1px solid #000;
+            padding: 10px;
+            background-color: #fff;
         }
 
-        .os-container {
-            /* Garante que a OS não seja cortada entre páginas */
-            page-break-inside: avoid;
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 2px solid #000;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
         }
 
-        .os-container:nth-of-type(2n) {
-            /* Quebra de página após cada segunda OS */
-            page-break-after: always;
+        .header-title {
+            text-align: center;
+            flex-grow: 1;
         }
 
-        .excluir-os-button {
-            display: none !important;
+        .header-title h2 {
+            margin: 0;
+            font-size: 20px;
         }
 
-        .area-ha-input {
-            /* Oculta os inputs de área na impressão */
-            display: none;
+        .agrovvale-logo {
+            width: 150px;
+            height: auto;
         }
-        
-        .area-print {
-            /* Exibe o span com a área, que pode estar em branco */
+
+        .agrovvale-logo img {
+            max-width: 70%;
+            height: auto;
             display: block;
         }
 
-        /* Removendo a quebra de página se for a última OS ou a penúltima OS */
-        .os-container:last-of-type {
-            page-break-after: auto;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 10px;
         }
 
-        .os-container:nth-last-of-type(2) {
-            page-break-after: auto;
+        table,
+        th,
+        td {
+            border: 1px solid #000;
         }
-    }
-    
-    .hidden-span {
-        display: none;
-    }
 
-    .total-area-cell {
-        font-weight: bold;
-        text-align: right;
-    }
+        th,
+        td {
+            padding: 5px;
+            text-align: left;
+            font-size: 12px;
+            vertical-align: top;
+        }
 
-    .button-container {
-        display: flex;
-        gap: 10px;
-        margin-top: 20px;
-    }
+        th {
+            background-color: #f2f2f2;
+            font-weight: normal;
+        }
 
-    .os-actions {
-        display: flex;
-        justify-content: flex-end;
-        margin-bottom: 10px;
-    }
+        input[type="text"],
+        select,
+        input[type="date"] {
+            width: 98%;
+            border: none;
+            outline: none;
+            padding: 2px;
+            box-sizing: border-box;
+        }
+        
+        .os-container select[multiple] {
+            height: 100px; /* Adjust height as needed */
+        }
 
-    .excluir-os-button {
-        background-color: #d9534f;
-        color: white;
-        border: none;
-        padding: 5px 10px;
-        cursor: pointer;
-        font-size: 12px;
-        border-radius: 4px;
-    }
+        .input-inline {
+            display: flex;
+            align-items: center;
+        }
 
-    .os-status {
-        font-weight: bold;
-        text-align: right;
-        padding-right: 10px;
-        color: #d9534f;
-    }
-    
-    .os-status.verified {
-        color: #5cb85c;
-    }
-</style>
+        .input-inline label {
+            white-space: nowrap;
+            margin-right: 5px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .checkbox-group div {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .full-width-cell {
+            width: 100%;
+        }
+
+        .os-container {
+            border: 1px solid #000;
+            padding: 10px;
+            margin-bottom: 20px;
+            background-color: #fff;
+            position: relative;
+        }
+
+        /* Estilos para a impressão */
+        @media print {
+            body {
+                /* Definindo a escala de 70% */
+                zoom: 55%;
+            }
+
+            .no-print {
+                display: none;
+            }
+
+            .os-container {
+                /* Garante que a OS não seja cortada entre páginas */
+                page-break-inside: avoid;
+            }
+
+            .os-container:nth-of-type(2n) {
+                /* Quebra de página após cada segunda OS */
+                page-break-after: always;
+            }
+
+            .excluir-os-button {
+                display: none !important;
+            }
+
+            .area-ha-input {
+                /* Oculta os inputs de área na impressão */
+                display: none;
+            }
+            
+            .area-print {
+                /* Exibe o span com a área, que pode estar em branco */
+                display: block;
+            }
+
+            /* Removendo a quebra de página se for a última OS ou a penúltima OS */
+            .os-container:last-of-type {
+                page-break-after: auto;
+            }
+
+            .os-container:nth-last-of-type(2) {
+                page-break-after: auto;
+            }
+        }
+        
+        .hidden-span {
+            display: none;
+        }
+
+        .total-area-cell {
+            font-weight: bold;
+            text-align: right;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .os-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 10px;
+        }
+
+        .excluir-os-button {
+            background-color: #d9534f;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 12px;
+            border-radius: 4px;
+        }
+
+        .os-status {
+            font-weight: bold;
+            text-align: right;
+            padding-right: 10px;
+            color: #d9534f;
+        }
+        
+        .os-status.verified {
+            color: #5cb85c;
+        }
+    </style>
 </head>
 
 <body>
@@ -343,81 +343,81 @@
                             <select class="talhao-select" multiple onchange="updateTalhaoText(this);"></select>
                             <span class="talhao-code-span hidden-span"></span>
                         </td>
-                        <td><input type="text" class="area-ha-input"></td>
+                        <td><input type="text" class="area-ha-input" data-previous-value="0.00"></td>
                         <td>
                             <select class="talhao-select" multiple onchange="updateTalhaoText(this);"></select>
                             <span class="talhao-code-span hidden-span"></span>
                         </td>
-                        <td><input type="text" class="area-ha-input"></td>
+                        <td><input type="text" class="area-ha-input" data-previous-value="0.00"></td>
                         <td>
                             <select class="talhao-select" multiple onchange="updateTalhaoText(this);"></select>
                             <span class="talhao-code-span hidden-span"></span>
                         </td>
-                        <td><input type="text" class="area-ha-input"></td>
+                        <td><input type="text" class="area-ha-input" data-previous-value="0.00"></td>
                         <td>
                             <select class="talhao-select" multiple onchange="updateTalhaoText(this);"></select>
                             <span class="talhao-code-span hidden-span"></span>
                         </td>
-                        <td><input type="text" class="area-ha-input"></td>
+                        <td><input type="text" class="area-ha-input" data-previous-value="0.00"></td>
                         <td>
                             <select class="talhao-select" multiple onchange="updateTalhaoText(this);"></select>
                             <span class="talhao-code-span hidden-span"></span>
                         </td>
-                        <td><input type="text" class="area-ha-input"></td>
+                        <td><input type="text" class="area-ha-input" data-previous-value="0.00"></td>
                     </tr>
                     <tr>
                         <td>
                             <select class="talhao-select" multiple onchange="updateTalhaoText(this);"></select>
                             <span class="talhao-code-span hidden-span"></span>
                         </td>
-                        <td><input type="text" class="area-ha-input"></td>
+                        <td><input type="text" class="area-ha-input" data-previous-value="0.00"></td>
                         <td>
                             <select class="talhao-select" multiple onchange="updateTalhaoText(this);"></select>
                             <span class="talhao-code-span hidden-span"></span>
                         </td>
-                        <td><input type="text" class="area-ha-input"></td>
+                        <td><input type="text" class="area-ha-input" data-previous-value="0.00"></td>
                         <td>
                             <select class="talhao-select" multiple onchange="updateTalhaoText(this);"></select>
                             <span class="talhao-code-span hidden-span"></span>
                         </td>
-                        <td><input type="text" class="area-ha-input"></td>
+                        <td><input type="text" class="area-ha-input" data-previous-value="0.00"></td>
                         <td>
                             <select class="talhao-select" multiple onchange="updateTalhaoText(this);"></select>
                             <span class="talhao-code-span hidden-span"></span>
                         </td>
-                        <td><input type="text" class="area-ha-input"></td>
+                        <td><input type="text" class="area-ha-input" data-previous-value="0.00"></td>
                         <td>
                             <select class="talhao-select" multiple onchange="updateTalhaoText(this);"></select>
                             <span class="talhao-code-span hidden-span"></span>
                         </td>
-                        <td><input type="text" class="area-ha-input"></td>
+                        <td><input type="text" class="area-ha-input" data-previous-value="0.00"></td>
                     </tr>
                     <tr>
                         <td>
                             <select class="talhao-select" multiple onchange="updateTalhaoText(this);"></select>
                             <span class="talhao-code-span hidden-span"></span>
                         </td>
-                        <td><input type="text" class="area-ha-input"></td>
+                        <td><input type="text" class="area-ha-input" data-previous-value="0.00"></td>
                         <td>
                             <select class="talhao-select" multiple onchange="updateTalhaoText(this);"></select>
                             <span class="talhao-code-span hidden-span"></span>
                         </td>
-                        <td><input type="text" class="area-ha-input"></td>
+                        <td><input type="text" class="area-ha-input" data-previous-value="0.00"></td>
                         <td>
                             <select class="talhao-select" multiple onchange="updateTalhaoText(this);"></select>
                             <span class="talhao-code-span hidden-span"></span>
                         </td>
-                        <td><input type="text" class="area-ha-input"></td>
+                        <td><input type="text" class="area-ha-input" data-previous-value="0.00"></td>
                         <td>
                             <select class="talhao-select" multiple onchange="updateTalhaoText(this);"></select>
                             <span class="talhao-code-span hidden-span"></span>
                         </td>
-                        <td><input type="text" class="area-ha-input"></td>
+                        <td><input type="text" class="area-ha-input" data-previous-value="0.00"></td>
                         <td>
                             <select class="talhao-select" multiple onchange="updateTalhaoText(this);"></select>
                             <span class="talhao-code-span hidden-span"></span>
                         </td>
-                        <td><input type="text" class="area-ha-input"></td>
+                        <td><input type="text" class="area-ha-input" data-previous-value="0.00"></td>
                     </tr>
                     <tr>
                         <td colspan="9" class="total-area-cell">Total:</td>
@@ -1025,7 +1025,7 @@
             const otherAreasTotal = Array.from(areaHaInputs).filter(input => input !== areaInput).reduce((sum, input) => sum + (parseFloat(input.value.replace(',', '.')) || 0), 0);
             const totalComNovaArea = otherAreasTotal + totalAreaSelecionada;
 
-            if (totalComNovaArea > fazendaMaxArea) {
+            if (totalComNovaArea > fazendaMaxArea + 0.01) { // Adiciona uma pequena tolerância para evitar problemas de ponto flutuante
                 alert(`A soma das áreas (${totalComNovaArea.toFixed(2).replace('.', ',')} ha) excede a área total da fazenda selecionada (${fazendaMaxArea.toFixed(2).replace('.', ',')} ha).`);
                 
                 // Limpa a seleção e o campo de área da coluna atual para evitar exceder o limite
@@ -1041,74 +1041,104 @@
             updateTotalArea();
         }
 
-        // Função para atualizar a área total e validar
-        function updateTotalArea() {
-            let newTotalArea = 0;
-            areaHaInputs.forEach(input => {
-                newTotalArea += parseFloat(input.value.replace(',', '.')) || 0;
-            });
-            totalAreaInput.value = newTotalArea.toFixed(2).replace('.', ',');
-            updateUtilizacao(osElement);
-            osElement.querySelector('.os-status').textContent = 'Não Verificado';
-            osElement.querySelector('.os-status').classList.remove('verified');
-        }
-
-        // Função para lidar com a edição manual da área
+        // Nova função para lidar com a edição manual da área
         function handleAreaInput(event) {
             const lastEditedInput = event.target;
-            const previousValue = parseFloat(lastEditedInput.dataset.previousValue || '0'.replace(',', '.'));
-            let currentValue = parseFloat(lastEditedInput.value.replace(',', '.')) || 0;
-            
-            const totalAreaBeforeEdit = calculateTotalArea() - previousValue;
             const fazenda = fazendaSelect.value;
-            const maxArea = fazenda ? totalAreaFazenda[fazenda] : Infinity;
             
-            if (totalAreaBeforeEdit + currentValue > maxArea) {
-                alert(`A soma das áreas (${(totalAreaBeforeEdit + currentValue).toFixed(2).replace('.', ',')} ha) excede a área total da fazenda selecionada (${maxArea.toFixed(2).replace('.', ',')} ha).`);
-                currentValue = maxArea - totalAreaBeforeEdit;
-                lastEditedInput.value = currentValue > 0 ? currentValue.toFixed(2).replace('.', ',') : '0,00';
+            if (!fazenda) {
+                alert("Por favor, selecione uma fazenda primeiro.");
+                lastEditedInput.value = '';
+                return;
             }
             
-            lastEditedInput.dataset.previousValue = lastEditedInput.value.replace(',', '.');
+            const maxArea = totalAreaFazenda[fazenda];
+            const currentValue = parseFloat(lastEditedInput.value.replace(',', '.')) || 0;
+
+            const talhaoSelect = lastEditedInput.closest('td').previousElementSibling.querySelector('.talhao-select');
+            const selectedTalhoes = talhaoSelect ? Array.from(talhaoSelect.selectedOptions).map(option => option.value) : [];
+
+            if (selectedTalhoes.length === 1 && selectedTalhoes[0] !== 'todos' && selectedTalhoes[0] !== '') {
+                const talhao = selectedTalhoes[0];
+                let maxIndividualArea = 0;
+                if (talhao === '666' && areaTalhao666[fazenda]) {
+                    maxIndividualArea = areaTalhao666[fazenda];
+                } else {
+                    const [startTalhao] = fazendaTalhoes[fazenda];
+                    const areaIndex = parseInt(talhao) - startTalhao;
+                    const areasDaFazenda = talhaoAreasPorFazenda[fazenda];
+                    if (areasDaFazenda && areasDaFazenda[areaIndex] !== undefined) {
+                        maxIndividualArea = areasDaFazenda[areaIndex];
+                    }
+                }
+                if (currentValue > maxIndividualArea + 0.01) {
+                    alert(`O valor digitado (${currentValue.toFixed(2).replace('.', ',')} ha) excede a área original do talhão ${talhao} (${maxIndividualArea.toFixed(2).replace('.', ',')} ha). O valor será ajustado.`);
+                    lastEditedInput.value = maxIndividualArea.toFixed(2).replace('.', ',');
+                }
+            } else if (selectedTalhoes.length > 1 || selectedTalhoes.includes('todos')) {
+                 const originalAreaForSelection = selectedTalhoes.includes('todos') ? maxArea : selectedTalhoes.reduce((sum, talhao) => {
+                    let area = 0;
+                    if (talhao === '666' && areaTalhao666[fazenda]) {
+                        area = areaTalhao666[fazenda];
+                    } else if (talhao !== 'todos') {
+                        const [startTalhao] = fazendaTalhoes[fazenda];
+                        const areaIndex = parseInt(talhao) - startTalhao;
+                        const areasDaFazenda = talhaoAreasPorFazenda[fazenda];
+                        if (areasDaFazenda && areasDaFazenda[areaIndex] !== undefined) {
+                            area = areasDaFazenda[areaIndex];
+                        }
+                    }
+                    return sum + area;
+                }, 0);
+
+                if (currentValue > originalAreaForSelection + 0.01) {
+                    alert(`O valor digitado (${currentValue.toFixed(2).replace('.', ',')} ha) excede a área combinada dos talhões selecionados (${originalAreaForSelection.toFixed(2).replace('.', ',')} ha). O valor será ajustado.`);
+                    lastEditedInput.value = originalAreaForSelection.toFixed(2).replace('.', ',');
+                }
+            }
+
+            const otherAreasTotal = Array.from(areaHaInputs).filter(input => input !== lastEditedInput).reduce((sum, input) => sum + (parseFloat(input.value.replace(',', '.')) || 0), 0);
+            const newTotalArea = otherAreasTotal + (parseFloat(lastEditedInput.value.replace(',', '.')) || 0);
+
+            if (newTotalArea > maxArea + 0.01) {
+                alert(`A soma das áreas (${newTotalArea.toFixed(2).replace('.', ',')} ha) excede a área total da fazenda selecionada (${maxArea.toFixed(2).replace('.', ',')} ha). O valor será ajustado.`);
+                lastEditedInput.value = (maxArea - otherAreasTotal).toFixed(2).replace('.', ',');
+            }
+            
             updateTotalArea();
         }
         
-        // ... (código existente)
+        function updateTalhaoText(selectElement) {
+            const todosOption = selectElement.querySelector('option[value="todos"]');
+            const selectedOptions = Array.from(selectElement.selectedOptions);
+            const selectedValues = selectedOptions.map(option => option.value);
 
-function updateTalhaoText(selectElement) {
-    const todosOption = selectElement.querySelector('option[value="todos"]');
-    const selectedOptions = Array.from(selectElement.selectedOptions);
-    const selectedValues = selectedOptions.map(option => option.value);
-
-    // Verifica se "TODOS" foi o único item selecionado no clique atual
-    if (selectedValues.length === 1 && selectedValues[0] === 'todos') {
-        // Primeira função do "TODOS": selecionar todos os talhões
-        Array.from(selectElement.options).forEach(option => {
-            if (option.value !== 'todos') {
-                option.selected = true;
+            // Se "TODOS" for selecionado sozinho, seleciona todos os outros talhões
+            if (selectedValues.length === 1 && selectedValues[0] === 'todos') {
+                Array.from(selectElement.options).forEach(option => {
+                    if (option.value !== 'todos') {
+                        option.selected = true;
+                    }
+                });
+                todosOption.selected = false;
+            } else if (selectedValues.includes('todos') && selectedOptions.length > 1) {
+                // Se "TODOS" e outros talhões estiverem selecionados, desmarca todos
+                Array.from(selectElement.options).forEach(option => {
+                    option.selected = false;
+                });
             }
-        });
-        todosOption.selected = false;
-    } else if (selectedValues.includes('todos') && selectedOptions.length > 1) {
-        // Segunda função do "TODOS": desmarcar todos os talhões
-        Array.from(selectElement.options).forEach(option => {
-            option.selected = false;
-        });
-    }
 
-    const finalSelectedOptions = Array.from(selectElement.selectedOptions);
-    const finalSelectedValues = finalSelectedOptions.map(option => option.value);
+            const finalSelectedOptions = Array.from(selectElement.selectedOptions);
+            const finalSelectedValues = finalSelectedOptions.map(option => option.value);
 
-    const formattedRange = formatTalhaoRange(finalSelectedValues);
-    const talhaoSpan = selectElement.parentElement.querySelector('.talhao-code-span');
-    if (talhaoSpan) {
-        talhaoSpan.textContent = formattedRange;
-    }
+            const formattedRange = formatTalhaoRange(finalSelectedValues);
+            const talhaoSpan = selectElement.parentElement.querySelector('.talhao-code-span');
+            if (talhaoSpan) {
+                talhaoSpan.textContent = formattedRange;
+            }
 
-    updateAreaFromSelection(selectElement);
-}
-
-// ... (código restante)
+            updateAreaFromSelection(selectElement);
+        }
 
         function updateUtilizacao(osElement) {
             const totalAreaInput = osElement.querySelector('.totalAreaInput');
@@ -1272,47 +1302,43 @@ function updateTalhaoText(selectElement) {
         }
     }
 
-    // ... (código existente)
+    function addInsumo() {
+        const code = prompt("Digite o código do novo insumo:");
+        if (!code) return;
+        const name = prompt("Digite o nome do novo insumo:");
+        if (!name) return;
 
-function addInsumo() {
-    const code = prompt("Digite o código do novo insumo:");
-    if (!code) return;
-    const name = prompt("Digite o nome do novo insumo:");
-    if (!name) return;
+        const newInsumo = { value: code, text: name };
+        insumos.push(newInsumo);
+        insumos.sort((a, b) => a.text.localeCompare(b.text));
 
-    const newInsumo = { value: code, text: name };
-    insumos.push(newInsumo);
-    insumos.sort((a, b) => a.text.localeCompare(b.text));
+        const allInsumoSelects = document.querySelectorAll('.insumo-select');
+        allInsumoSelects.forEach(select => {
+            // Armazena o valor selecionado antes de reconstruir a lista
+            const currentSelectedValue = select.value;
+            select.innerHTML = '';
+            const defaultOption = document.createElement('option');
+            defaultOption.value = "";
+            defaultOption.textContent = "Selecione um insumo";
+            defaultOption.selected = true;
+            defaultOption.disabled = true;
+            select.appendChild(defaultOption);
 
-    const allInsumoSelects = document.querySelectorAll('.insumo-select');
-    allInsumoSelects.forEach(select => {
-        // Armazena o valor selecionado antes de reconstruir a lista
-        const currentSelectedValue = select.value;
-        select.innerHTML = '';
-        const defaultOption = document.createElement('option');
-        defaultOption.value = "";
-        defaultOption.textContent = "Selecione um insumo";
-        defaultOption.selected = true;
-        defaultOption.disabled = true;
-        select.appendChild(defaultOption);
+            insumos.forEach(insumo => {
+                const option = document.createElement('option');
+                option.value = insumo.value;
+                option.textContent = insumo.text;
+                select.appendChild(option);
+            });
 
-        insumos.forEach(insumo => {
-            const option = document.createElement('option');
-            option.value = insumo.value;
-            option.textContent = insumo.text;
-            select.appendChild(option);
+            // Reaplica o valor selecionado se ele ainda existir
+            if (currentSelectedValue) {
+                select.value = currentSelectedValue;
+            }
         });
 
-        // Reaplica o valor selecionado se ele ainda existir
-        if (currentSelectedValue) {
-            select.value = currentSelectedValue;
-        }
-    });
-
-    alert(`Insumo "${name}" (código ${code}) adicionado com sucesso a todas as O.S.`);
-}
-
-// ... (código restante)
+        alert(`Insumo "${name}" (código ${code}) adicionado com sucesso a todas as O.S.`);
+    }
 
     function verifyAllOS() {
         const osContainers = document.querySelectorAll('.os-container');
@@ -1332,9 +1358,11 @@ function addInsumo() {
             ];
 
             const tipoOperacaoChecked = osElement.querySelectorAll('.tipo-operacao-checkbox:checked').length > 0;
-            const talhaoSelected = Array.from(osElement.querySelectorAll('.talhao-select')).some(select => select.value !== "");
+            const talhaoSelected = Array.from(osElement.querySelectorAll('.talhao-select')).some(select => Array.from(select.selectedOptions).some(option => option.value !== ''));
             const maquinaSelected = Array.from(osElement.querySelectorAll('.maquina-select')).some(select => select.value !== "");
             const insumoSelected = Array.from(osElement.querySelectorAll('.insumo-select')).some(select => select.value !== "");
+            const totalAreaValue = parseFloat(osElement.querySelector('.totalAreaInput').value.replace(',', '.')) || 0;
+            const totalAreaFilled = totalAreaValue > 0;
             
             let hasEmptyField = false;
             for (const field of requiredFields) {
@@ -1344,7 +1372,7 @@ function addInsumo() {
                 }
             }
 
-            if (hasEmptyField || !tipoOperacaoChecked || !talhaoSelected || !maquinaSelected || !insumoSelected) {
+            if (hasEmptyField || !tipoOperacaoChecked || !talhaoSelected || !maquinaSelected || !insumoSelected || !totalAreaFilled) {
                 allVerified = false;
                 statusSpan.textContent = 'Não Verificado';
                 statusSpan.classList.remove('verified');
@@ -1357,25 +1385,25 @@ function addInsumo() {
         if (allVerified) {
             alert("Todas as O.S. foram verificadas com sucesso!");
         } else {
-            alert("Por favor, preencha todos os campos obrigatórios em cada O.S. antes de verificar.");
+            alert("Por favor, preencha todos os campos obrigatórios em cada O.S. antes de verificar. A área total deve ser maior que 0.");
         }
     }
 
     function printAll() {
-    const osContainers = document.querySelectorAll('.os-container');
-    let allVerified = true;
-    osContainers.forEach(osElement => {
-        if (!osElement.querySelector('.os-status').classList.contains('verified')) {
-            allVerified = false;
+        const osContainers = document.querySelectorAll('.os-container');
+        let allVerified = true;
+        osContainers.forEach(osElement => {
+            if (!osElement.querySelector('.os-status').classList.contains('verified')) {
+                allVerified = false;
+            }
+        });
+
+        if (!allVerified) {
+            alert("A impressão só é permitida após a verificação de todas as O.S. Por favor, clique em 'Verificar OS's' para continuar.");
+            return;
         }
-    });
 
-    if (!allVerified) {
-        alert("A impressão só é permitida após a verificação de todas as O.S. Por favor, clique em 'Verificar OS's' para continuar.");
-        return;
-    }
-
-    document.querySelectorAll('.no-print').forEach(el => el.style.display = 'none');
+       document.querySelectorAll('.no-print').forEach(el => el.style.display = 'none');
     osContainers.forEach((container, index) => {
         if (index % 2 !== 0 && index < osContainers.length - 1) {
             const pageBreak = document.createElement('div');
@@ -1383,76 +1411,71 @@ function addInsumo() {
             container.parentNode.insertBefore(pageBreak, container.nextSibling);
         }
     });
-    
-    // Oculta inputs de área com valor "0,00" e exibe o texto em branco
-    const areaInputs = document.querySelectorAll('.area-ha-input');
-    areaInputs.forEach(input => {
-        const value = input.value;
-        const parentTd = input.closest('td');
-        if (parentTd) {
-            if (value === "0,00" || value === "0") {
-                const span = document.createElement('span');
-                span.textContent = '';
-                span.className = 'area-print';
-                input.parentNode.replaceChild(span, input);
-            } else {
-                const span = document.createElement('span');
-                span.textContent = value;
-                span.className = 'area-print';
-                input.parentNode.replaceChild(span, input);
-            }
-        }
-    });
-
-    window.print();
-}
-
-window.addEventListener('afterprint', () => {
-    document.querySelectorAll('div[style="page-break-after: always;"]').forEach(el => el.remove());
-    document.querySelectorAll('.no-print').forEach(el => el.style.display = 'flex');
-
-    document.querySelectorAll('.os-container').forEach(osElement => {
-        osElement.querySelectorAll('select').forEach(select => {
-            select.style.display = 'block';
-        });
-        osElement.querySelectorAll('.hidden-span').forEach(span => {
-            span.style.display = 'none';
-        });
-
-        osElement.querySelectorAll('.observacao-print').forEach(span => {
-            const input = document.createElement('input');
-            input.type = 'text';
-            input.value = span.textContent;
-            input.className = 'observacao-input';
-            span.parentNode.replaceChild(input, span);
-        });
-
-        osElement.querySelectorAll('.observacao-input-rodape').forEach(span => {
-            const input = document.createElement('input');
-            input.type = 'text';
-            input.value = span.textContent;
-            input.className = 'observacao-input-rodape';
-            span.parentNode.replaceChild(input, span);
-        });
-
-        osElement.querySelectorAll('.talhao-code-span').forEach(span => {
-            span.style.display = 'none';
-            const select = span.parentElement.querySelector('.talhao-select');
-            if (select) {
-                select.style.display = 'block';
-            }
-        });
         
-        // Restaura os inputs de área
-        osElement.querySelectorAll('.area-print').forEach(span => {
-            const input = document.createElement('input');
-            input.type = 'text';
-            input.className = 'area-ha-input';
-            input.value = span.textContent;
-            span.parentNode.replaceChild(input, span);
+        // Oculta inputs de área com valor "0,00" e exibe o texto em branco
+        const areaInputs = document.querySelectorAll('.area-ha-input');
+        areaInputs.forEach(input => {
+            const value = input.value;
+            const parentTd = input.closest('td');
+            if (parentTd) {
+                const span = document.createElement('span');
+                span.textContent = (value === "0,00" || value === "0") ? '' : value;
+                span.className = 'area-print';
+                input.parentNode.replaceChild(span, input);
+            }
+        });
+
+        window.print();
+    }
+
+    window.addEventListener('afterprint', () => {
+        document.querySelectorAll('div[style="page-break-after: always;"]').forEach(el => el.remove());
+        document.querySelectorAll('.no-print').forEach(el => el.style.display = 'flex');
+
+        document.querySelectorAll('.os-container').forEach(osElement => {
+            osElement.querySelectorAll('.operacao-select, .fazenda-select, .responsavel-select, .planta-soca-select').forEach(select => {
+                select.style.display = 'block';
+            });
+            osElement.querySelectorAll('.hidden-span').forEach(span => {
+                span.style.display = 'none';
+            });
+
+            osElement.querySelectorAll('.observacao-print').forEach(span => {
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.value = span.textContent;
+                input.className = 'observacao-input';
+                span.parentNode.replaceChild(input, span);
+            });
+
+            osElement.querySelectorAll('.observacao-print-rodape').forEach(span => {
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.value = span.textContent;
+                input.className = 'observacao-input-rodape';
+                span.parentNode.replaceChild(input, span);
+            });
+
+            osElement.querySelectorAll('.talhao-code-span').forEach(span => {
+                span.style.display = 'none';
+                const select = span.parentElement.querySelector('.talhao-select');
+                if (select) {
+                    select.style.display = 'block';
+                }
+            });
+            
+            // Restaura os inputs de área
+            osElement.querySelectorAll('.area-print').forEach(span => {
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.className = 'area-ha-input';
+                input.value = span.textContent;
+                span.parentNode.replaceChild(input, span);
+                // Re-adiciona o listener de input
+                input.addEventListener('input', handleAreaInput);
+            });
         });
     });
-});
 
     window.addEventListener('beforeprint', () => {
         document.querySelectorAll('.os-container').forEach(osElement => {
