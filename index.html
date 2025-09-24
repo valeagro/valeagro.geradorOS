@@ -6,209 +6,212 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Solicitação de Abertura de O.S. - AGROVALE</title>
     <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #f0f0f0;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 1000px;
+        margin: 0 auto;
+        border: 1px solid #000;
+        padding: 10px;
+        background-color: #fff;
+    }
+
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 2px solid #000;
+        padding-bottom: 5px;
+        margin-bottom: 10px;
+    }
+
+    .header-title {
+        text-align: center;
+        flex-grow: 1;
+    }
+
+    .header-title h2 {
+        margin: 0;
+        font-size: 20px;
+    }
+
+    .agrovvale-logo {
+        width: 150px;
+        height: auto;
+    }
+
+    .agrovvale-logo img {
+        max-width: 70%;
+        height: auto;
+        display: block;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 10px;
+    }
+
+    table,
+    th,
+    td {
+        border: 1px solid #000;
+    }
+
+    th,
+    td {
+        padding: 5px;
+        text-align: left;
+        font-size: 12px;
+        vertical-align: top;
+    }
+
+    th {
+        background-color: #f2f2f2;
+        font-weight: normal;
+    }
+
+    input[type="text"],
+    select,
+    input[type="date"] {
+        width: 98%;
+        border: none;
+        outline: none;
+        padding: 2px;
+        box-sizing: border-box;
+    }
+    
+    .os-container select[multiple] {
+        height: 100px; /* Adjust height as needed */
+    }
+
+    .input-inline {
+        display: flex;
+        align-items: center;
+    }
+
+    .input-inline label {
+        white-space: nowrap;
+        margin-right: 5px;
+    }
+
+    .checkbox-group {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+    }
+
+    .checkbox-group div {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .full-width-cell {
+        width: 100%;
+    }
+
+    .os-container {
+        border: 1px solid #000;
+        padding: 10px;
+        margin-bottom: 20px;
+        background-color: #fff;
+        position: relative;
+    }
+
+    /* Estilos para a impressão */
+    @media print {
         body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f0f0f0;
+            /* Definindo a escala de 70% */
+            zoom: 55%;
         }
 
-        .container {
-            width: 100%;
-            max-width: 1000px;
-            margin: 0 auto;
-            border: 1px solid #000;
-            padding: 10px;
-            background-color: #fff;
-        }
-
-        .header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 2px solid #000;
-            padding-bottom: 5px;
-            margin-bottom: 10px;
-        }
-
-        .header-title {
-            text-align: center;
-            flex-grow: 1;
-        }
-
-        .header-title h2 {
-            margin: 0;
-            font-size: 20px;
-        }
-
-        .agrovvale-logo {
-            width: 150px;
-            height: auto;
-        }
-
-        .agrovvale-logo img {
-            max-width: 70%;
-            height: auto;
-            display: block;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 10px;
-        }
-
-        table,
-        th,
-        td {
-            border: 1px solid #000;
-        }
-
-        th,
-        td {
-            padding: 5px;
-            text-align: left;
-            font-size: 12px;
-            vertical-align: top;
-        }
-
-        th {
-            background-color: #f2f2f2;
-            font-weight: normal;
-        }
-
-        input[type="text"],
-        input[type="date"],
-        select {
-            width: 98%;
-            border: none;
-            outline: none;
-            padding: 2px;
-            box-sizing: border-box;
-        }
-
-        .os-container select[multiple] {
-            height: 100px;
-        }
-
-        .input-inline {
-            display: flex;
-            align-items: center;
-        }
-
-        .input-inline label {
-            white-space: nowrap;
-            margin-right: 5px;
-        }
-
-        .checkbox-group {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
-
-        .checkbox-group div {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .full-width-cell {
-            width: 100%;
-        }
-
-        .os-container {
-            border: 1px solid #000;
-            padding: 10px;
-            margin-bottom: 20px;
-            background-color: #fff;
-            position: relative;
-        }
-
-        /* Estilos para a impressão */
-        @media print {
-            body {
-                zoom: 55%;
-            }
-
-            .no-print,
-            .os-actions,
-            .button-container,
-            .area-ha-input,
-            .totalAreaInput,
-            input[type="text"],
-            input[type="date"],
-            input[type="checkbox"],
-            select {
-                display: none !important;
-            }
-
-            .hidden-span,
-            .area-print {
-                display: inline-block !important;
-                border: none;
-                background: transparent;
-                width: 98%;
-                padding: 2px;
-                box-sizing: border-box;
-            }
-
-            .os-container {
-                page-break-inside: avoid;
-            }
-
-            .os-container:nth-of-type(2n) {
-                page-break-after: always;
-            }
-
-            .os-container:last-of-type,
-            .os-container:nth-last-of-type(2) {
-                page-break-after: auto;
-            }
-        }
-        
-        .hidden-span {
+        .no-print {
             display: none;
         }
 
-        .total-area-cell {
-            font-weight: bold;
-            text-align: right;
+        .os-container {
+            /* Garante que a OS não seja cortada entre páginas */
+            page-break-inside: avoid;
         }
 
-        .button-container {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .os-actions {
-            display: flex;
-            justify-content: flex-end;
-            margin-bottom: 10px;
+        .os-container:nth-of-type(2n) {
+            /* Quebra de página após cada segunda OS */
+            page-break-after: always;
         }
 
         .excluir-os-button {
-            background-color: #d9534f;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-            font-size: 12px;
-            border-radius: 4px;
+            display: none !important;
         }
 
-        .os-status {
-            font-weight: bold;
-            text-align: right;
-            padding-right: 10px;
-            color: #d9534f;
+        .area-ha-input {
+            /* Oculta os inputs de área na impressão */
+            display: none;
         }
         
-        .os-status.verified {
-            color: #5cb85c;
+        .area-print {
+            /* Exibe o span com a área, que pode estar em branco */
+            display: block;
         }
-    </style>
+
+        /* Removendo a quebra de página se for a última OS ou a penúltima OS */
+        .os-container:last-of-type {
+            page-break-after: auto;
+        }
+
+        .os-container:nth-last-of-type(2) {
+            page-break-after: auto;
+        }
+    }
+    
+    .hidden-span {
+        display: none;
+    }
+
+    .total-area-cell {
+        font-weight: bold;
+        text-align: right;
+    }
+
+    .button-container {
+        display: flex;
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    .os-actions {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 10px;
+    }
+
+    .excluir-os-button {
+        background-color: #d9534f;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+        font-size: 12px;
+        border-radius: 4px;
+    }
+
+    .os-status {
+        font-weight: bold;
+        text-align: right;
+        padding-right: 10px;
+        color: #d9534f;
+    }
+    
+    .os-status.verified {
+        color: #5cb85c;
+    }
+</style>
 </head>
 
 <body>
@@ -230,10 +233,10 @@
 
             <table>
                 <tr>
-                    <td style="width: 15%;"><b>O.S.:</b><input type="text" class="os-number-input"><span class="os-number-span hidden-span"></span></td>
+                    <td style="width: 15%;"><b>O.S.:</b><input type="text" class="os-number-input"></td>
                     <td style="width: 25%;">
                         <b>Objeto de Custo:</b>
-                        <input type="text" class="objetoCustoInput" readonly><span class="objetoCusto-span hidden-span"></span>
+                        <input type="text" class="objetoCustoInput" readonly>
                         <div style="margin-top: 5px;">
                             <label for="tipoCultura" class="planta-soca-label"></label>
                             <select class="planta-soca-select">
@@ -241,7 +244,6 @@
                                 <option value="planta">Planta</option>
                                 <option value="soca">Soca</option>
                             </select>
-                            <span class="planta-soca-span hidden-span"></span>
                         </div>
                     </td>
                     <td style="width: 15%;">
@@ -273,34 +275,34 @@
                         </select>
                         <span class="operacao-code-span hidden-span"></span>
                     </td>
-                    <td style="width: 15%;"><b>Data:</b><input type="date" class="data-input"><span class="data-span hidden-span"></span></td>
-                    <td style="width: 15%;"><b>Data Inicial:</b><input type="date" class="data-inicial-input"><span class="data-inicial-span hidden-span"></span></td>
-                    <td style="width: 15%;"><b>Data Final:</b><input type="date" class="data-final-input"><span class="data-final-span hidden-span"></span></td>
+                    <td style="width: 15%;"><b>Data:</b><input type="date" class="data-input"></td>
+                    <td style="width: 15%;"><b>Data Inicial:</b><input type="date" class="data-inicial-input"></td>
+                    <td style="width: 15%;"><b>Data Final:</b><input type="date" class="data-final-input"></td>
                 </tr>
             </table>
 
             <table>
                 <tr>
-                    <td style="width: 15%;"><b>Almoxarifado:</b><input type="text" class="almoxarifado-input"><span class="almoxarifado-span hidden-span"></span></td>
+                    <td style="width: 15%;"><b>Almoxarifado:</b><input type="text" class="almoxarifado-input"></td>
                     <td style="width: 20%;">
                         <b>Tipo de Operação:</b>
                         <div class="checkbox-group">
                             <div>
-                                <input type="checkbox" id="aerea" name="tipo_operacao" class="tipo-operacao-checkbox"><span class="checkbox-span hidden-span"></span>
+                                <input type="checkbox" id="aerea" name="tipo_operacao" class="tipo-operacao-checkbox">
                                 <label for="aerea">Aérea</label>
                             </div>
                             <div>
-                                <input type="checkbox" id="manual" name="tipo_operacao" class="tipo-operacao-checkbox"><span class="checkbox-span hidden-span"></span>
+                                <input type="checkbox" id="manual" name="tipo_operacao" class="tipo-operacao-checkbox">
                                 <label for="manual">Manual</label>
                             </div>
                             <div>
-                                <input type="checkbox" id="mecanizada" name="tipo_operacao" class="tipo-operacao-checkbox"><span class="checkbox-span hidden-span"></span>
+                                <input type="checkbox" id="mecanizada" name="tipo_operacao" class="tipo-operacao-checkbox">
                                 <label for="mecanizada">Mecanizada</label>
                             </div>
                         </div>
                     </td>
-                    <td style="width: 15%;"><b>Requisição:</b><input type="text" class="requisicao-input"><span class="requisicao-span hidden-span"></span></td>
-                    <td style="width: 15%;"><b>N° de Pessoas:</b><input type="text" class="n-pessoas-input"><span class="n-pessoas-span hidden-span"></span></td>
+                    <td style="width: 15%;"><b>Requisição:</b><input type="text" class="requisicao-input"></td>
+                    <td style="width: 15%;"><b>N° de Pessoas:</b><input type="text" class="n-pessoas-input"></td>
                     <td style="width: 15%;">
                         <b>Fazenda:</b>
                         <select class="fazenda-select">
@@ -309,7 +311,7 @@
                         <span class="fazenda-code-span hidden-span"></span>
                     </td>
                     <td style="width: 20%;"><b>Responsável:</b>
-                        <select class="responsavel-select">
+                        <select class="responsavel-select" onchange="updateResponsavelCode(this);">
                             <option value="" selected disabled>Selecione um responsável</option>
                             <option value="18660">Francival</option>
                             <option value="75795">Gleuber</option>
@@ -338,101 +340,101 @@
                 <tbody>
                     <tr>
                         <td>
-                            <select class="talhao-select" multiple></select>
+                            <select class="talhao-select" multiple onchange="updateTalhaoText(this);"></select>
                             <span class="talhao-code-span hidden-span"></span>
                         </td>
-                        <td><input type="text" class="area-ha-input"><span class="area-print hidden-span"></span></td>
+                        <td><input type="text" class="area-ha-input"></td>
                         <td>
-                            <select class="talhao-select" multiple></select>
+                            <select class="talhao-select" multiple onchange="updateTalhaoText(this);"></select>
                             <span class="talhao-code-span hidden-span"></span>
                         </td>
-                        <td><input type="text" class="area-ha-input"><span class="area-print hidden-span"></span></td>
+                        <td><input type="text" class="area-ha-input"></td>
                         <td>
-                            <select class="talhao-select" multiple></select>
+                            <select class="talhao-select" multiple onchange="updateTalhaoText(this);"></select>
                             <span class="talhao-code-span hidden-span"></span>
                         </td>
-                        <td><input type="text" class="area-ha-input"><span class="area-print hidden-span"></span></td>
+                        <td><input type="text" class="area-ha-input"></td>
                         <td>
-                            <select class="talhao-select" multiple></select>
+                            <select class="talhao-select" multiple onchange="updateTalhaoText(this);"></select>
                             <span class="talhao-code-span hidden-span"></span>
                         </td>
-                        <td><input type="text" class="area-ha-input"><span class="area-print hidden-span"></span></td>
+                        <td><input type="text" class="area-ha-input"></td>
                         <td>
-                            <select class="talhao-select" multiple></select>
+                            <select class="talhao-select" multiple onchange="updateTalhaoText(this);"></select>
                             <span class="talhao-code-span hidden-span"></span>
                         </td>
-                        <td><input type="text" class="area-ha-input"><span class="area-print hidden-span"></span></td>
+                        <td><input type="text" class="area-ha-input"></td>
                     </tr>
                     <tr>
                         <td>
-                            <select class="talhao-select" multiple></select>
+                            <select class="talhao-select" multiple onchange="updateTalhaoText(this);"></select>
                             <span class="talhao-code-span hidden-span"></span>
                         </td>
-                        <td><input type="text" class="area-ha-input"><span class="area-print hidden-span"></span></td>
+                        <td><input type="text" class="area-ha-input"></td>
                         <td>
-                            <select class="talhao-select" multiple></select>
+                            <select class="talhao-select" multiple onchange="updateTalhaoText(this);"></select>
                             <span class="talhao-code-span hidden-span"></span>
                         </td>
-                        <td><input type="text" class="area-ha-input"><span class="area-print hidden-span"></span></td>
+                        <td><input type="text" class="area-ha-input"></td>
                         <td>
-                            <select class="talhao-select" multiple></select>
+                            <select class="talhao-select" multiple onchange="updateTalhaoText(this);"></select>
                             <span class="talhao-code-span hidden-span"></span>
                         </td>
-                        <td><input type="text" class="area-ha-input"><span class="area-print hidden-span"></span></td>
+                        <td><input type="text" class="area-ha-input"></td>
                         <td>
-                            <select class="talhao-select" multiple></select>
+                            <select class="talhao-select" multiple onchange="updateTalhaoText(this);"></select>
                             <span class="talhao-code-span hidden-span"></span>
                         </td>
-                        <td><input type="text" class="area-ha-input"><span class="area-print hidden-span"></span></td>
+                        <td><input type="text" class="area-ha-input"></td>
                         <td>
-                            <select class="talhao-select" multiple></select>
+                            <select class="talhao-select" multiple onchange="updateTalhaoText(this);"></select>
                             <span class="talhao-code-span hidden-span"></span>
                         </td>
-                        <td><input type="text" class="area-ha-input"><span class="area-print hidden-span"></span></td>
+                        <td><input type="text" class="area-ha-input"></td>
                     </tr>
                     <tr>
                         <td>
-                            <select class="talhao-select" multiple></select>
+                            <select class="talhao-select" multiple onchange="updateTalhaoText(this);"></select>
                             <span class="talhao-code-span hidden-span"></span>
                         </td>
-                        <td><input type="text" class="area-ha-input"><span class="area-print hidden-span"></span></td>
+                        <td><input type="text" class="area-ha-input"></td>
                         <td>
-                            <select class="talhao-select" multiple></select>
+                            <select class="talhao-select" multiple onchange="updateTalhaoText(this);"></select>
                             <span class="talhao-code-span hidden-span"></span>
                         </td>
-                        <td><input type="text" class="area-ha-input"><span class="area-print hidden-span"></span></td>
+                        <td><input type="text" class="area-ha-input"></td>
                         <td>
-                            <select class="talhao-select" multiple></select>
+                            <select class="talhao-select" multiple onchange="updateTalhaoText(this);"></select>
                             <span class="talhao-code-span hidden-span"></span>
                         </td>
-                        <td><input type="text" class="area-ha-input"><span class="area-print hidden-span"></span></td>
+                        <td><input type="text" class="area-ha-input"></td>
                         <td>
-                            <select class="talhao-select" multiple></select>
+                            <select class="talhao-select" multiple onchange="updateTalhaoText(this);"></select>
                             <span class="talhao-code-span hidden-span"></span>
                         </td>
-                        <td><input type="text" class="area-ha-input"><span class="area-print hidden-span"></span></td>
+                        <td><input type="text" class="area-ha-input"></td>
                         <td>
-                            <select class="talhao-select" multiple></select>
+                            <select class="talhao-select" multiple onchange="updateTalhaoText(this);"></select>
                             <span class="talhao-code-span hidden-span"></span>
                         </td>
-                        <td><input type="text" class="area-ha-input"><span class="area-print hidden-span"></span></td>
+                        <td><input type="text" class="area-ha-input"></td>
                     </tr>
                     <tr>
                         <td colspan="9" class="total-area-cell">Total:</td>
-                        <td><input type="text" class="totalAreaInput" readonly><span class="totalArea-span hidden-span"></span></td>
+                        <td><input type="text" class="totalAreaInput" readonly></td>
                     </tr>
                 </tbody>
             </table>
 
             <table>
                 <tr>
-                    <td colspan="2" style="width: 50%;"><b>MÁQUINA:</b></td>
-                    <td style="width: 25%;"><b>REND. P/HA:</b></td>
-                    <td style="width: 25%;"><b>UTILIZAÇÃO:</b></td>
+                    <td colspan="2" style="width: 50%;"><b>MÁQUINA:</b><br><br><br></td>
+                    <td style="width: 25%;"><b>REND. P/HA:</b><br><br><br></td>
+                    <td style="width: 25%;"><b>UTILIZAÇÃO:</b><br><br><br></td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <select class="maquina-select">
+                        <select class="maquina-select" onchange="updateMaquinaCode(this);">
                             <option value="" selected disabled>Selecione a máquina</option>
                             <option value="100018">100018</option>
                             <option value="100019">100019</option>
@@ -443,12 +445,12 @@
                         </select>
                         <span class="maquina-code-span hidden-span"></span>
                     </td>
-                    <td><input type="text"><span class="rend-p-ha-span hidden-span"></span></td>
-                    <td><input type="text"><span class="utilizacao-span hidden-span"></span></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <select class="maquina-select">
+                        <select class="maquina-select" onchange="updateMaquinaCode(this);">
                             <option value="" selected disabled>Selecione a máquina</option>
                             <option value="100018">100018</option>
                             <option value="100019">100019</option>
@@ -459,12 +461,12 @@
                         </select>
                         <span class="maquina-code-span hidden-span"></span>
                     </td>
-                    <td><input type="text"><span class="rend-p-ha-span hidden-span"></span></td>
-                    <td><input type="text"><span class="utilizacao-span hidden-span"></span></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <select class="maquina-select">
+                        <select class="maquina-select" onchange="updateMaquinaCode(this);">
                             <option value="" selected disabled>Selecione a máquina</option>
                             <option value="100018">100018</option>
                             <option value="100019">100019</option>
@@ -475,12 +477,12 @@
                         </select>
                         <span class="maquina-code-span hidden-span"></span>
                     </td>
-                    <td><input type="text"><span class="rend-p-ha-span hidden-span"></span></td>
-                    <td><input type="text"><span class="utilizacao-span hidden-span"></span></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <select class="maquina-select">
+                        <select class="maquina-select" onchange="updateMaquinaCode(this);">
                             <option value="" selected disabled>Selecione a máquina</option>
                             <option value="100018">100018</option>
                             <option value="100019">100019</option>
@@ -491,12 +493,12 @@
                         </select>
                         <span class="maquina-code-span hidden-span"></span>
                     </td>
-                    <td><input type="text"><span class="rend-p-ha-span hidden-span"></span></td>
-                    <td><input type="text"><span class="utilizacao-span hidden-span"></span></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <select class="maquina-select">
+                        <select class="maquina-select" onchange="updateMaquinaCode(this);">
                             <option value="" selected disabled>Selecione a máquina</option>
                             <option value="100018">100018</option>
                             <option value="100019">100019</option>
@@ -507,8 +509,8 @@
                         </select>
                         <span class="maquina-code-span hidden-span"></span>
                     </td>
-                    <td><input type="text"><span class="rend-p-ha-span hidden-span"></span></td>
-                    <td><input type="text"><span class="utilizacao-span hidden-span"></span></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
                 </tr>
             </table>
 
@@ -523,57 +525,57 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td><input type="text" class="observacao-input"><span class="observacao-span hidden-span"></span></td>
+                        <td><input type="text" class="observacao-input"></td>
                         <td>
                             <select class="insumo-select"></select>
                             <span class="insumo-code-span hidden-span"></span>
                         </td>
-                        <td><input type="text" class="rend-p-ha-input"><span class="rend-p-ha-insumo-span hidden-span"></span></td>
-                        <td><input type="text" class="utilizacao-input"><span class="utilizacao-insumo-span hidden-span"></span></td>
+                        <td><input type="text" class="rend-p-ha-input"></td>
+                        <td><input type="text" class="utilizacao-input"></td>
                     </tr>
                     <tr>
-                        <td><input type="text" class="observacao-input"><span class="observacao-span hidden-span"></span></td>
+                        <td><input type="text" class="observacao-input"></td>
                         <td>
                             <select class="insumo-select"></select>
                             <span class="insumo-code-span hidden-span"></span>
                         </td>
-                        <td><input type="text" class="rend-p-ha-input"><span class="rend-p-ha-insumo-span hidden-span"></span></td>
-                        <td><input type="text" class="utilizacao-input"><span class="utilizacao-insumo-span hidden-span"></span></td>
+                        <td><input type="text" class="rend-p-ha-input"></td>
+                        <td><input type="text" class="utilizacao-input"></td>
                     </tr>
                     <tr>
-                        <td><input type="text" class="observacao-input"><span class="observacao-span hidden-span"></span></td>
+                        <td><input type="text" class="observacao-input"></td>
                         <td>
                             <select class="insumo-select"></select>
                             <span class="insumo-code-span hidden-span"></span>
                         </td>
-                        <td><input type="text" class="rend-p-ha-input"><span class="rend-p-ha-insumo-span hidden-span"></span></td>
-                        <td><input type="text" class="utilizacao-input"><span class="utilizacao-insumo-span hidden-span"></span></td>
+                        <td><input type="text" class="rend-p-ha-input"></td>
+                        <td><input type="text" class="utilizacao-input"></td>
                     </tr>
                     <tr>
-                        <td><input type="text" class="observacao-input"><span class="observacao-span hidden-span"></span></td>
+                        <td><input type="text" class="observacao-input"></td>
                         <td>
                             <select class="insumo-select"></select>
                             <span class="insumo-code-span hidden-span"></span>
                         </td>
-                        <td><input type="text" class="rend-p-ha-input"><span class="rend-p-ha-insumo-span hidden-span"></span></td>
-                        <td><input type="text" class="utilizacao-input"><span class="utilizacao-insumo-span hidden-span"></span></td>
+                        <td><input type="text" class="rend-p-ha-input"></td>
+                        <td><input type="text" class="utilizacao-input"></td>
                     </tr>
                     <tr>
-                        <td><input type="text" class="observacao-input"><span class="observacao-span hidden-span"></span></td>
+                        <td><input type="text" class="observacao-input"></td>
                         <td>
                             <select class="insumo-select"></select>
                             <span class="insumo-code-span hidden-span"></span>
                         </td>
-                        <td><input type="text" class="rend-p-ha-input"><span class="rend-p-ha-insumo-span hidden-span"></span></td>
-                        <td><input type="text" class="utilizacao-input"><span class="utilizacao-insumo-span hidden-span"></span></td>
+                        <td><input type="text" class="rend-p-ha-input"></td>
+                        <td><input type="text" class="utilizacao-input"></td>
                     </tr>
                 </tbody>
             </table>
 
             <table style="margin-bottom: 20px;">
                 <tr>
-                    <td style="width: 50%; height: 60px;"><b>Observação:</b> <input type="text" class="observacao-input-rodape"><span class="observacao-input-rodape-span hidden-span"></span></td>
-                    <td style="width: 50%;"><b>Ass. Super. / Coord.:</b></td>
+                    <td style="width: 50%; height: 60px;"><b>Observação: <input type="text" class="observacao-input-rodape"></b><br><br><br></td>
+                    <td style="width: 50%;"><b>Ass. Super. / Coord.:</b><br><br><br></td>
                 </tr>
             </table>
         </div>
@@ -587,6 +589,7 @@
     </div>
 
     <script>
+        // Registrar o Service Worker
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('/service-worker.js')
@@ -863,46 +866,6 @@
         const totalAreaInput = osElement.querySelector('.totalAreaInput');
         const operacaoSelect = osElement.querySelector('.operacao-select');
         const tipoCulturaSelect = osElement.querySelector('.planta-soca-select');
-        const osNumberInput = osElement.querySelector('.os-number-input');
-
-        function updateSpanFromInput(input, span) {
-            span.textContent = input.value;
-        }
-
-        function updateSpansFromSelect(select, span) {
-            if (select.multiple) {
-                const selectedOptions = Array.from(select.selectedOptions).map(option => option.value);
-                span.textContent = formatTalhaoRange(selectedOptions);
-            } else {
-                span.textContent = select.options[select.selectedIndex].textContent;
-            }
-        }
-        
-        function updateAllSpans(osElement) {
-            osElement.querySelectorAll('input').forEach(input => {
-                const span = input.nextElementSibling;
-                if (span && span.classList.contains('hidden-span')) {
-                    updateSpanFromInput(input, span);
-                }
-            });
-
-            osElement.querySelectorAll('select').forEach(select => {
-                const span = select.nextElementSibling;
-                if (span && span.classList.contains('hidden-span')) {
-                    updateSpansFromSelect(select, span);
-                }
-            });
-        }
-        
-        // Event listeners para atualizar os spans em tempo real
-        osElement.querySelectorAll('input, select').forEach(element => {
-            element.addEventListener('change', () => {
-                updateAllSpans(osElement);
-            });
-            element.addEventListener('input', () => {
-                updateAllSpans(osElement);
-            });
-        });
 
         function populateFazendaSelect() {
             fazendaKeysSorted.forEach(key => {
@@ -958,7 +921,6 @@
             areaHaInputs.forEach(input => input.value = '');
             totalAreaInput.value = '';
             updateUtilizacao(osElement);
-            updateAllSpans(osElement);
 
             if (selectedFazenda && fazendaTalhoes[selectedFazenda]) {
                 const [start, end] = fazendaTalhoes[selectedFazenda];
@@ -978,7 +940,7 @@
                     }
 
                     const fazendaCode = parseInt(selectedFazenda);
-                    if (fazendaCode >= 101 && fazendaCode <= 653 && areaTalhao666[selectedFazenda]) {
+                    if (fazendaCode >= 101 && fazendaCode <= 653) {
                         const talhao666Option = document.createElement('option');
                         talhao666Option.value = '666';
                         talhao666Option.textContent = '666';
@@ -1027,6 +989,7 @@
             return ranges.join(', ');
         }
         
+        // Função para calcular a área total
         function calculateTotalArea() {
             let totalAreaGeral = 0;
             areaHaInputs.forEach(input => {
@@ -1035,6 +998,7 @@
             return totalAreaGeral;
         }
 
+        // Função para atualizar a área após a seleção de talhões E validar o limite
         function updateAreaFromSelection(selectElement) {
             const selectedFazenda = fazendaSelect.value;
             if (!selectedFazenda) return;
@@ -1064,18 +1028,20 @@
             if (totalComNovaArea > fazendaMaxArea) {
                 alert(`A soma das áreas (${totalComNovaArea.toFixed(2).replace('.', ',')} ha) excede a área total da fazenda selecionada (${fazendaMaxArea.toFixed(2).replace('.', ',')} ha).`);
                 
+                // Limpa a seleção e o campo de área da coluna atual para evitar exceder o limite
                 Array.from(selectElement.options).forEach(opt => opt.selected = false);
                 areaInput.value = '0,00';
                 
+                // Recalcula o total apenas com as áreas que já estavam preenchidas
                 updateTotalArea();
                 return;
             }
 
             areaInput.value = totalAreaSelecionada.toFixed(2).replace('.', ',');
             updateTotalArea();
-            updateAllSpans(osElement);
         }
 
+        // Função para atualizar a área total e validar
         function updateTotalArea() {
             let newTotalArea = 0;
             areaHaInputs.forEach(input => {
@@ -1087,6 +1053,7 @@
             osElement.querySelector('.os-status').classList.remove('verified');
         }
 
+        // Função para lidar com a edição manual da área
         function handleAreaInput(event) {
             const lastEditedInput = event.target;
             const previousValue = parseFloat(lastEditedInput.dataset.previousValue || '0'.replace(',', '.'));
@@ -1104,71 +1071,71 @@
             
             lastEditedInput.dataset.previousValue = lastEditedInput.value.replace(',', '.');
             updateTotalArea();
-            updateAllSpans(osElement);
         }
+        
+        // ... (código existente)
 
-        function updateTalhaoText(selectElement) {
-            const todosOption = selectElement.querySelector('option[value="todos"]');
-            const selectedOptions = Array.from(selectElement.selectedOptions);
-            const selectedValues = selectedOptions.map(option => option.value);
+function updateTalhaoText(selectElement) {
+    const todosOption = selectElement.querySelector('option[value="todos"]');
+    const selectedOptions = Array.from(selectElement.selectedOptions);
+    const selectedValues = selectedOptions.map(option => option.value);
 
-            if (selectedValues.length === 1 && selectedValues[0] === 'todos') {
-                Array.from(selectElement.options).forEach(option => {
-                    if (option.value !== 'todos') {
-                        option.selected = true;
-                    }
-                });
-                todosOption.selected = false;
-            } else if (selectedValues.includes('todos') && selectedOptions.length > 1) {
-                Array.from(selectElement.options).forEach(option => {
-                    option.selected = false;
-                });
+    // Verifica se "TODOS" foi o único item selecionado no clique atual
+    if (selectedValues.length === 1 && selectedValues[0] === 'todos') {
+        // Primeira função do "TODOS": selecionar todos os talhões
+        Array.from(selectElement.options).forEach(option => {
+            if (option.value !== 'todos') {
+                option.selected = true;
             }
+        });
+        todosOption.selected = false;
+    } else if (selectedValues.includes('todos') && selectedOptions.length > 1) {
+        // Segunda função do "TODOS": desmarcar todos os talhões
+        Array.from(selectElement.options).forEach(option => {
+            option.selected = false;
+        });
+    }
 
-            const finalSelectedOptions = Array.from(selectElement.selectedOptions);
-            const finalSelectedValues = finalSelectedOptions.map(option => option.value);
+    const finalSelectedOptions = Array.from(selectElement.selectedOptions);
+    const finalSelectedValues = finalSelectedOptions.map(option => option.value);
 
-            const formattedRange = formatTalhaoRange(finalSelectedValues);
-            const talhaoSpan = selectElement.parentElement.querySelector('.talhao-code-span');
-            if (talhaoSpan) {
-                talhaoSpan.textContent = formattedRange;
-            }
+    const formattedRange = formatTalhaoRange(finalSelectedValues);
+    const talhaoSpan = selectElement.parentElement.querySelector('.talhao-code-span');
+    if (talhaoSpan) {
+        talhaoSpan.textContent = formattedRange;
+    }
 
-            updateAreaFromSelection(selectElement);
-            updateAllSpans(osElement);
-        }
+    updateAreaFromSelection(selectElement);
+}
+
+// ... (código restante)
 
         function updateUtilizacao(osElement) {
             const totalAreaInput = osElement.querySelector('.totalAreaInput');
             const totalAreaValue = parseFloat(totalAreaInput.value.replace(',', '.')) || 0;
             const insumoRows = osElement.querySelectorAll('table:nth-of-type(5) tbody tr');
             const maquinaRows = osElement.querySelectorAll('table:nth-of-type(4) tbody tr');
-        
+
             insumoRows.forEach(row => {
                 const rendPhaInput = row.querySelector('.rend-p-ha-input');
                 const utilizacaoInput = row.querySelector('.utilizacao-input');
-                const rendPhaSpan = row.querySelector('.rend-p-ha-insumo-span');
-                const utilizacaoSpan = row.querySelector('.utilizacao-insumo-span');
-                
                 if (rendPhaInput && utilizacaoInput) {
                     const handleRendPhaInput = () => {
                         const rendPhaValue = parseFloat(rendPhaInput.value.replace(',', '.')) || 0;
                         const result = rendPhaValue * totalAreaValue;
                         utilizacaoInput.value = result.toFixed(2).replace('.', ',');
-                        if (rendPhaSpan) rendPhaSpan.textContent = rendPhaInput.value;
-                        if (utilizacaoSpan) utilizacaoSpan.textContent = utilizacaoInput.value;
                     };
                     const handleUtilizacaoInput = () => {
                         const utilizacaoValue = parseFloat(utilizacaoInput.value.replace(',', '.')) || 0;
                         if (totalAreaValue > 0) {
                             const result = utilizacaoValue / totalAreaValue;
-                            rendPhaInput.value = result.toFixed(5).replace('.', ',');
+                            rendPhaInput.value = result.toFixed(5).replace('.', ','); // 5 casas decimais
                         } else {
                             rendPhaInput.value = '';
                         }
-                        if (rendPhaSpan) rendPhaSpan.textContent = rendPhaInput.value;
-                        if (utilizacaoSpan) utilizacaoSpan.textContent = utilizacaoInput.value;
                     };
+                    rendPhaInput.removeEventListener('input', handleRendPhaInput);
+                    utilizacaoInput.removeEventListener('input', handleUtilizacaoInput);
                     rendPhaInput.addEventListener('input', handleRendPhaInput);
                     utilizacaoInput.addEventListener('input', handleUtilizacaoInput);
                 }
@@ -1177,28 +1144,23 @@
             maquinaRows.forEach(row => {
                 const rendPhaInput = row.querySelector('td:nth-of-type(3) input');
                 const utilizacaoInput = row.querySelector('td:nth-of-type(4) input');
-                const rendPhaSpan = row.querySelector('.rend-p-ha-span');
-                const utilizacaoSpan = row.querySelector('.utilizacao-span');
-
-                if (rendPhaInput && utilizacaoInput) {
+                 if (rendPhaInput && utilizacaoInput) {
                     const handleRendPhaInput = () => {
                         const rendPhaValue = parseFloat(rendPhaInput.value.replace(',', '.')) || 0;
                         const result = rendPhaValue * totalAreaValue;
                         utilizacaoInput.value = result.toFixed(2).replace('.', ',');
-                        if (rendPhaSpan) rendPhaSpan.textContent = rendPhaInput.value;
-                        if (utilizacaoSpan) utilizacaoSpan.textContent = utilizacaoInput.value;
                     };
                     const handleUtilizacaoInput = () => {
                         const utilizacaoValue = parseFloat(utilizacaoInput.value.replace(',', '.')) || 0;
                         if (totalAreaValue > 0) {
                             const result = utilizacaoValue / totalAreaValue;
-                            rendPhaInput.value = result.toFixed(5).replace('.', ',');
+                            rendPhaInput.value = result.toFixed(5).replace('.', ','); // 5 casas decimais
                         } else {
                             rendPhaInput.value = '';
                         }
-                        if (rendPhaSpan) rendPhaSpan.textContent = rendPhaInput.value;
-                        if (utilizacaoSpan) utilizacaoSpan.textContent = utilizacaoInput.value;
                     };
+                    rendPhaInput.removeEventListener('input', handleRendPhaInput);
+                    utilizacaoInput.removeEventListener('input', handleUtilizacaoInput);
                     rendPhaInput.addEventListener('input', handleRendPhaInput);
                     utilizacaoInput.addEventListener('input', handleUtilizacaoInput);
                 }
@@ -1208,17 +1170,17 @@
         }
 
         function updateResponsavelCode(selectElement) {
-            const span = selectElement.nextElementSibling;
+            const span = selectElement.parentElement.querySelector('.responsavel-code-span');
             if (span) span.textContent = selectElement.value || '';
         }
 
         function updateInsumoCode(selectElement) {
-            const span = selectElement.nextElementSibling;
+            const span = selectElement.parentElement.querySelector('.insumo-code-span');
             if (span) span.textContent = selectElement.value || '';
         }
 
         function updateMaquinaCode(selectElement) {
-            const span = selectElement.nextElementSibling;
+            const span = selectElement.parentElement.querySelector('.maquina-code-span');
             if (span) span.textContent = selectElement.value || '';
         }
 
@@ -1288,25 +1250,6 @@
             osElement.querySelector('.os-status').textContent = 'Não Verificado';
             osElement.querySelector('.os-status').classList.remove('verified');
         });
-        
-        // Adicionando evento de input para campos de texto para atualizar os spans
-        osElement.querySelectorAll('input[type="text"]').forEach(input => {
-            input.addEventListener('input', () => {
-                const span = input.nextElementSibling;
-                if (span && span.classList.contains('hidden-span')) {
-                    span.textContent = input.value;
-                }
-            });
-        });
-
-        osElement.querySelectorAll('input[type="date"]').forEach(input => {
-            input.addEventListener('change', () => {
-                const span = input.nextElementSibling;
-                if (span && span.classList.contains('hidden-span')) {
-                    span.textContent = input.value;
-                }
-            });
-        });
 
         updateUtilizacao(osElement);
     }
@@ -1329,41 +1272,47 @@
         }
     }
 
-    function addInsumo() {
-        const code = prompt("Digite o código do novo insumo:");
-        if (!code) return;
-        const name = prompt("Digite o nome do novo insumo:");
-        if (!name) return;
+    // ... (código existente)
 
-        const newInsumo = { value: code, text: name };
-        insumos.push(newInsumo);
-        insumos.sort((a, b) => a.text.localeCompare(b.text));
+function addInsumo() {
+    const code = prompt("Digite o código do novo insumo:");
+    if (!code) return;
+    const name = prompt("Digite o nome do novo insumo:");
+    if (!name) return;
 
-        const allInsumoSelects = document.querySelectorAll('.insumo-select');
-        allInsumoSelects.forEach(select => {
-            const currentSelectedValue = select.value;
-            select.innerHTML = '';
-            const defaultOption = document.createElement('option');
-            defaultOption.value = "";
-            defaultOption.textContent = "Selecione um insumo";
-            defaultOption.selected = true;
-            defaultOption.disabled = true;
-            select.appendChild(defaultOption);
+    const newInsumo = { value: code, text: name };
+    insumos.push(newInsumo);
+    insumos.sort((a, b) => a.text.localeCompare(b.text));
 
-            insumos.forEach(insumo => {
-                const option = document.createElement('option');
-                option.value = insumo.value;
-                option.textContent = insumo.text;
-                select.appendChild(option);
-            });
+    const allInsumoSelects = document.querySelectorAll('.insumo-select');
+    allInsumoSelects.forEach(select => {
+        // Armazena o valor selecionado antes de reconstruir a lista
+        const currentSelectedValue = select.value;
+        select.innerHTML = '';
+        const defaultOption = document.createElement('option');
+        defaultOption.value = "";
+        defaultOption.textContent = "Selecione um insumo";
+        defaultOption.selected = true;
+        defaultOption.disabled = true;
+        select.appendChild(defaultOption);
 
-            if (currentSelectedValue) {
-                select.value = currentSelectedValue;
-            }
+        insumos.forEach(insumo => {
+            const option = document.createElement('option');
+            option.value = insumo.value;
+            option.textContent = insumo.text;
+            select.appendChild(option);
         });
 
-        alert(`Insumo "${name}" (código ${code}) adicionado com sucesso a todas as O.S.`);
-    }
+        // Reaplica o valor selecionado se ele ainda existir
+        if (currentSelectedValue) {
+            select.value = currentSelectedValue;
+        }
+    });
+
+    alert(`Insumo "${name}" (código ${code}) adicionado com sucesso a todas as O.S.`);
+}
+
+// ... (código restante)
 
     function verifyAllOS() {
         const osContainers = document.querySelectorAll('.os-container');
@@ -1413,25 +1362,165 @@
     }
 
     function printAll() {
-        const osContainers = document.querySelectorAll('.os-container');
-        let allVerified = true;
-        osContainers.forEach(osElement => {
-            if (!osElement.querySelector('.os-status').classList.contains('verified')) {
-                allVerified = false;
+    const osContainers = document.querySelectorAll('.os-container');
+    let allVerified = true;
+    osContainers.forEach(osElement => {
+        if (!osElement.querySelector('.os-status').classList.contains('verified')) {
+            allVerified = false;
+        }
+    });
+
+    if (!allVerified) {
+        alert("A impressão só é permitida após a verificação de todas as O.S. Por favor, clique em 'Verificar OS's' para continuar.");
+        return;
+    }
+
+    document.querySelectorAll('.no-print').forEach(el => el.style.display = 'none');
+    osContainers.forEach((container, index) => {
+        if (index % 2 !== 0 && index < osContainers.length - 1) {
+            const pageBreak = document.createElement('div');
+            pageBreak.style.pageBreakAfter = 'always';
+            container.parentNode.insertBefore(pageBreak, container.nextSibling);
+        }
+    });
+    
+    // Oculta inputs de área com valor "0,00" e exibe o texto em branco
+    const areaInputs = document.querySelectorAll('.area-ha-input');
+    areaInputs.forEach(input => {
+        const value = input.value;
+        const parentTd = input.closest('td');
+        if (parentTd) {
+            if (value === "0,00" || value === "0") {
+                const span = document.createElement('span');
+                span.textContent = '';
+                span.className = 'area-print';
+                input.parentNode.replaceChild(span, input);
+            } else {
+                const span = document.createElement('span');
+                span.textContent = value;
+                span.className = 'area-print';
+                input.parentNode.replaceChild(span, input);
             }
+        }
+    });
+
+    window.print();
+}
+
+window.addEventListener('afterprint', () => {
+    document.querySelectorAll('div[style="page-break-after: always;"]').forEach(el => el.remove());
+    document.querySelectorAll('.no-print').forEach(el => el.style.display = 'flex');
+
+    document.querySelectorAll('.os-container').forEach(osElement => {
+        osElement.querySelectorAll('select').forEach(select => {
+            select.style.display = 'block';
+        });
+        osElement.querySelectorAll('.hidden-span').forEach(span => {
+            span.style.display = 'none';
         });
 
-        if (!allVerified) {
-            alert("A impressão só é permitida após a verificação de todas as O.S. Por favor, clique em 'Verificar OS's' para continuar.");
-            return;
-        }
+        osElement.querySelectorAll('.observacao-print').forEach(span => {
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.value = span.textContent;
+            input.className = 'observacao-input';
+            span.parentNode.replaceChild(input, span);
+        });
 
-        window.print();
-    }
+        osElement.querySelectorAll('.observacao-input-rodape').forEach(span => {
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.value = span.textContent;
+            input.className = 'observacao-input-rodape';
+            span.parentNode.replaceChild(input, span);
+        });
+
+        osElement.querySelectorAll('.talhao-code-span').forEach(span => {
+            span.style.display = 'none';
+            const select = span.parentElement.querySelector('.talhao-select');
+            if (select) {
+                select.style.display = 'block';
+            }
+        });
+        
+        // Restaura os inputs de área
+        osElement.querySelectorAll('.area-print').forEach(span => {
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.className = 'area-ha-input';
+            input.value = span.textContent;
+            span.parentNode.replaceChild(input, span);
+        });
+    });
+});
+
+    window.addEventListener('beforeprint', () => {
+        document.querySelectorAll('.os-container').forEach(osElement => {
+            osElement.querySelectorAll('.operacao-select, .fazenda-select, .responsavel-select, .planta-soca-select').forEach(select => {
+                select.style.display = 'none';
+                const parentTd = select.closest('td');
+                if (parentTd) {
+                    const spanClass = `.${select.className.replace(' ', '-').toLowerCase().replace('-select', '-code-span')}`;
+                    const codeSpan = parentTd.querySelector(spanClass);
+                    if (codeSpan) {
+                        codeSpan.textContent = select.value || '';
+                        codeSpan.style.display = 'inline-block';
+                    }
+                }
+            });
+            
+            osElement.querySelectorAll('.insumo-select').forEach(select => {
+                select.style.display = 'none';
+                const parentTd = select.closest('td');
+                if (parentTd) {
+                    const codeSpan = parentTd.querySelector('.insumo-code-span');
+                    if (codeSpan) {
+                        codeSpan.textContent = select.value || '';
+                        codeSpan.style.display = 'inline-block';
+                    }
+                }
+            });
+            
+            osElement.querySelectorAll('.maquina-select').forEach(select => {
+                select.style.display = 'none';
+                const parentTd = select.closest('td');
+                if (parentTd) {
+                    const codeSpan = parentTd.querySelector('.maquina-code-span');
+                    if (codeSpan) {
+                        codeSpan.textContent = select.value || '';
+                        codeSpan.style.display = 'inline-block';
+                    }
+                }
+            });
+
+            osElement.querySelectorAll('.talhao-select').forEach(select => {
+                select.style.display = 'none';
+                const talhaoSpan = select.parentElement.querySelector('.talhao-code-span');
+                if (talhaoSpan) {
+                    talhaoSpan.style.display = 'inline-block';
+                }
+            });
+
+            osElement.querySelectorAll('.observacao-input').forEach(input => {
+                const span = document.createElement('span');
+                span.textContent = input.value;
+                span.className = 'observacao-print';
+                input.parentNode.replaceChild(span, input);
+            });
+
+            osElement.querySelectorAll('.observacao-input-rodape').forEach(input => {
+                const span = document.createElement('span');
+                span.textContent = input.value;
+                span.className = 'observacao-print-rodape';
+                input.parentNode.replaceChild(span, input);
+            });
+        });
+    });
 
     document.addEventListener('DOMContentLoaded', () => {
         initializeOS(osTemplate);
     });
     </script>
 </body>
+
 </html>
