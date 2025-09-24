@@ -589,6 +589,18 @@
     </div>
 
     <script>
+        // Registrar o Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(registration => {
+                        console.log('Service Worker registrado com sucesso:', registration);
+                    })
+                    .catch(error => {
+                        console.log('Falha no registro do Service Worker:', error);
+                    });
+            });
+        }
     const operacaoToCusto = {
         "464": { planta: "702", soca: "703" },
         "465": { planta: "1635", soca: "1636" },
@@ -1510,5 +1522,6 @@ window.addEventListener('afterprint', () => {
     });
     </script>
 </body>
+
 
 </html>
