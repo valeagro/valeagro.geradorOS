@@ -1,0 +1,1514 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitação de Abertura de O.S. - AGROVALE</title>
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #f0f0f0;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 1000px;
+        margin: 0 auto;
+        border: 1px solid #000;
+        padding: 10px;
+        background-color: #fff;
+    }
+
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 2px solid #000;
+        padding-bottom: 5px;
+        margin-bottom: 10px;
+    }
+
+    .header-title {
+        text-align: center;
+        flex-grow: 1;
+    }
+
+    .header-title h2 {
+        margin: 0;
+        font-size: 20px;
+    }
+
+    .agrovvale-logo {
+        width: 150px;
+        height: auto;
+    }
+
+    .agrovvale-logo img {
+        max-width: 70%;
+        height: auto;
+        display: block;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 10px;
+    }
+
+    table,
+    th,
+    td {
+        border: 1px solid #000;
+    }
+
+    th,
+    td {
+        padding: 5px;
+        text-align: left;
+        font-size: 12px;
+        vertical-align: top;
+    }
+
+    th {
+        background-color: #f2f2f2;
+        font-weight: normal;
+    }
+
+    input[type="text"],
+    select,
+    input[type="date"] {
+        width: 98%;
+        border: none;
+        outline: none;
+        padding: 2px;
+        box-sizing: border-box;
+    }
+    
+    .os-container select[multiple] {
+        height: 100px; /* Adjust height as needed */
+    }
+
+    .input-inline {
+        display: flex;
+        align-items: center;
+    }
+
+    .input-inline label {
+        white-space: nowrap;
+        margin-right: 5px;
+    }
+
+    .checkbox-group {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+    }
+
+    .checkbox-group div {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .full-width-cell {
+        width: 100%;
+    }
+
+    .os-container {
+        border: 1px solid #000;
+        padding: 10px;
+        margin-bottom: 20px;
+        background-color: #fff;
+        position: relative;
+    }
+
+    /* Estilos para a impressão */
+    @media print {
+        body {
+            /* Definindo a escala de 70% */
+            zoom: 55%;
+        }
+
+        .no-print {
+            display: none;
+        }
+
+        .os-container {
+            /* Garante que a OS não seja cortada entre páginas */
+            page-break-inside: avoid;
+        }
+
+        .os-container:nth-of-type(2n) {
+            /* Quebra de página após cada segunda OS */
+            page-break-after: always;
+        }
+
+        .excluir-os-button {
+            display: none !important;
+        }
+
+        .area-ha-input {
+            /* Oculta os inputs de área na impressão */
+            display: none;
+        }
+        
+        .area-print {
+            /* Exibe o span com a área, que pode estar em branco */
+            display: block;
+        }
+
+        /* Removendo a quebra de página se for a última OS ou a penúltima OS */
+        .os-container:last-of-type {
+            page-break-after: auto;
+        }
+
+        .os-container:nth-last-of-type(2) {
+            page-break-after: auto;
+        }
+    }
+    
+    .hidden-span {
+        display: none;
+    }
+
+    .total-area-cell {
+        font-weight: bold;
+        text-align: right;
+    }
+
+    .button-container {
+        display: flex;
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    .os-actions {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 10px;
+    }
+
+    .excluir-os-button {
+        background-color: #d9534f;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+        font-size: 12px;
+        border-radius: 4px;
+    }
+
+    .os-status {
+        font-weight: bold;
+        text-align: right;
+        padding-right: 10px;
+        color: #d9534f;
+    }
+    
+    .os-status.verified {
+        color: #5cb85c;
+    }
+</style>
+</head>
+
+<body>
+    <div id="main-container">
+        <div class="os-container" id="os-template">
+            <div class="os-actions no-print">
+                <span class="os-status">Não Verificado</span>
+                <button class="excluir-os-button" onclick="removeOS(this)">Excluir O.S.</button>
+            </div>
+            <div class="header">
+                <div class="agrovvale-logo">
+                    <img src="Logo-Site-Agrovale.png" alt="Logo Agrovale">
+                </div>
+                <div class="header-title">
+                    <h2>Solicitação de Abertura de O.S.</h2>
+                </div>
+                <div style="width: 150px;"></div>
+            </div>
+
+            <table>
+                <tr>
+                    <td style="width: 15%;"><b>O.S.:</b><input type="text" class="os-number-input"></td>
+                    <td style="width: 25%;">
+                        <b>Objeto de Custo:</b>
+                        <input type="text" class="objetoCustoInput" readonly>
+                        <div style="margin-top: 5px;">
+                            <label for="tipoCultura" class="planta-soca-label"></label>
+                            <select class="planta-soca-select">
+                                <option value="" selected disabled>Escolha</option>
+                                <option value="planta">Planta</option>
+                                <option value="soca">Soca</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td style="width: 15%;">
+                        <b>Operação:</b>
+                        <select class="operacao-select">
+                            <option value="" selected disabled>Selecione uma operação</option>
+                            <option value="1029">1029 - CONDIÇ DO TEMPO RUINS</option>
+                            <option value="470">470 - ADUBO FOLIAR</option>
+                            <option value="911">911 - AGUARDANDO PROGRAMAÇÃO</option>
+                            <option value="490">490 - CULTIVO MINIMO</option>
+                            <option value="560">560 - COTESIA</option>
+                            <option value="491">491 - ERRADIC DE ERVAS PERENES</option>
+                            <option value="565">565 - FOLIAR E INSETI CIGARRINHA</option>
+                            <option value="566">566 - FOLIAR E INSETI DIATRÉIA</option>
+                            <option value="567">567 - FOLIAR E INSETI LAGARTA</option>
+                            <option value="564">564 - FOLIAR E INSETI PULGÃO</option>
+                            <option value="568">568 - FOLIAR E PÓS EMERGÊNCIA</option>
+                            <option value="946">946 - FORA DE PROGRAMAÇÃO</option>
+                            <option value="472">472 - INIB. DE FLORECI</option>
+                            <option value="467">467 - INSETI CIGARRINHA</option>
+                            <option value="468">468 - INSETI DIATREA</option>
+                            <option value="466">466 - INSETI PULGÃO</option>
+                            <option value="471">471 - MATURADOR</option>
+                            <option value="489">489 - POS EMERGEN RUAS E CANAIS</option>
+                            <option value="465">465 - PÓS EMERG</option>
+                            <option value="464">464 - PRÉ EMERG</option>
+                            <option value="480">480 - SEG PRÉ EMERGENCIA</option>
+                            <option value="561">561 - TRICOGRAMA</option>
+                        </select>
+                        <span class="operacao-code-span hidden-span"></span>
+                    </td>
+                    <td style="width: 15%;"><b>Data:</b><input type="date" class="data-input"></td>
+                    <td style="width: 15%;"><b>Data Inicial:</b><input type="date" class="data-inicial-input"></td>
+                    <td style="width: 15%;"><b>Data Final:</b><input type="date" class="data-final-input"></td>
+                </tr>
+            </table>
+
+            <table>
+                <tr>
+                    <td style="width: 15%;"><b>Almoxarifado:</b><input type="text" class="almoxarifado-input"></td>
+                    <td style="width: 20%;">
+                        <b>Tipo de Operação:</b>
+                        <div class="checkbox-group">
+                            <div>
+                                <input type="checkbox" id="aerea" name="tipo_operacao" class="tipo-operacao-checkbox">
+                                <label for="aerea">Aérea</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="manual" name="tipo_operacao" class="tipo-operacao-checkbox">
+                                <label for="manual">Manual</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="mecanizada" name="tipo_operacao" class="tipo-operacao-checkbox">
+                                <label for="mecanizada">Mecanizada</label>
+                            </div>
+                        </div>
+                    </td>
+                    <td style="width: 15%;"><b>Requisição:</b><input type="text" class="requisicao-input"></td>
+                    <td style="width: 15%;"><b>N° de Pessoas:</b><input type="text" class="n-pessoas-input"></td>
+                    <td style="width: 15%;">
+                        <b>Fazenda:</b>
+                        <select class="fazenda-select">
+                            <option value="" selected disabled>Selecione a fazenda</option>
+                        </select>
+                        <span class="fazenda-code-span hidden-span"></span>
+                    </td>
+                    <td style="width: 20%;"><b>Responsável:</b>
+                        <select class="responsavel-select" onchange="updateResponsavelCode(this);">
+                            <option value="" selected disabled>Selecione um responsável</option>
+                            <option value="18660">Francival</option>
+                            <option value="75795">Gleuber</option>
+                            <option value="80267">João Eliel</option>
+                        </select>
+                        <span class="responsavel-code-span hidden-span"></span>
+                    </td>
+                </tr>
+            </table>
+
+            <table style="text-align: center;">
+                <thead>
+                    <tr>
+                        <td style="width: 10%;"><b>TALHÃO:</b></td>
+                        <td style="width: 10%;"><b>ÁREA (HA):</b></td>
+                        <td style="width: 10%;"><b>TALHÃO:</b></td>
+                        <td style="width: 10%;"><b>ÁREA (HA):</b></td>
+                        <td style="width: 10%;"><b>TALHÃO:</b></td>
+                        <td style="width: 10%;"><b>ÁREA (HA):</b></td>
+                        <td style="width: 10%;"><b>TALHÃO:</b></td>
+                        <td style="width: 10%;"><b>ÁREA (HA):</b></td>
+                        <td style="width: 10%;"><b>TALHÃO:</b></td>
+                        <td style="width: 10%;"><b>ÁREA (HA):</b></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <select class="talhao-select" multiple onchange="updateTalhaoText(this);"></select>
+                            <span class="talhao-code-span hidden-span"></span>
+                        </td>
+                        <td><input type="text" class="area-ha-input"></td>
+                        <td>
+                            <select class="talhao-select" multiple onchange="updateTalhaoText(this);"></select>
+                            <span class="talhao-code-span hidden-span"></span>
+                        </td>
+                        <td><input type="text" class="area-ha-input"></td>
+                        <td>
+                            <select class="talhao-select" multiple onchange="updateTalhaoText(this);"></select>
+                            <span class="talhao-code-span hidden-span"></span>
+                        </td>
+                        <td><input type="text" class="area-ha-input"></td>
+                        <td>
+                            <select class="talhao-select" multiple onchange="updateTalhaoText(this);"></select>
+                            <span class="talhao-code-span hidden-span"></span>
+                        </td>
+                        <td><input type="text" class="area-ha-input"></td>
+                        <td>
+                            <select class="talhao-select" multiple onchange="updateTalhaoText(this);"></select>
+                            <span class="talhao-code-span hidden-span"></span>
+                        </td>
+                        <td><input type="text" class="area-ha-input"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <select class="talhao-select" multiple onchange="updateTalhaoText(this);"></select>
+                            <span class="talhao-code-span hidden-span"></span>
+                        </td>
+                        <td><input type="text" class="area-ha-input"></td>
+                        <td>
+                            <select class="talhao-select" multiple onchange="updateTalhaoText(this);"></select>
+                            <span class="talhao-code-span hidden-span"></span>
+                        </td>
+                        <td><input type="text" class="area-ha-input"></td>
+                        <td>
+                            <select class="talhao-select" multiple onchange="updateTalhaoText(this);"></select>
+                            <span class="talhao-code-span hidden-span"></span>
+                        </td>
+                        <td><input type="text" class="area-ha-input"></td>
+                        <td>
+                            <select class="talhao-select" multiple onchange="updateTalhaoText(this);"></select>
+                            <span class="talhao-code-span hidden-span"></span>
+                        </td>
+                        <td><input type="text" class="area-ha-input"></td>
+                        <td>
+                            <select class="talhao-select" multiple onchange="updateTalhaoText(this);"></select>
+                            <span class="talhao-code-span hidden-span"></span>
+                        </td>
+                        <td><input type="text" class="area-ha-input"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <select class="talhao-select" multiple onchange="updateTalhaoText(this);"></select>
+                            <span class="talhao-code-span hidden-span"></span>
+                        </td>
+                        <td><input type="text" class="area-ha-input"></td>
+                        <td>
+                            <select class="talhao-select" multiple onchange="updateTalhaoText(this);"></select>
+                            <span class="talhao-code-span hidden-span"></span>
+                        </td>
+                        <td><input type="text" class="area-ha-input"></td>
+                        <td>
+                            <select class="talhao-select" multiple onchange="updateTalhaoText(this);"></select>
+                            <span class="talhao-code-span hidden-span"></span>
+                        </td>
+                        <td><input type="text" class="area-ha-input"></td>
+                        <td>
+                            <select class="talhao-select" multiple onchange="updateTalhaoText(this);"></select>
+                            <span class="talhao-code-span hidden-span"></span>
+                        </td>
+                        <td><input type="text" class="area-ha-input"></td>
+                        <td>
+                            <select class="talhao-select" multiple onchange="updateTalhaoText(this);"></select>
+                            <span class="talhao-code-span hidden-span"></span>
+                        </td>
+                        <td><input type="text" class="area-ha-input"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="9" class="total-area-cell">Total:</td>
+                        <td><input type="text" class="totalAreaInput" readonly></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table>
+                <tr>
+                    <td colspan="2" style="width: 50%;"><b>MÁQUINA:</b><br><br><br></td>
+                    <td style="width: 25%;"><b>REND. P/HA:</b><br><br><br></td>
+                    <td style="width: 25%;"><b>UTILIZAÇÃO:</b><br><br><br></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <select class="maquina-select" onchange="updateMaquinaCode(this);">
+                            <option value="" selected disabled>Selecione a máquina</option>
+                            <option value="100018">100018</option>
+                            <option value="100019">100019</option>
+                            <option value="100020">100020</option>
+                            <option value="100021">100021</option>
+                            <option value="100022">100022</option>
+                            <option value="100023">100023</option>
+                        </select>
+                        <span class="maquina-code-span hidden-span"></span>
+                    </td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <select class="maquina-select" onchange="updateMaquinaCode(this);">
+                            <option value="" selected disabled>Selecione a máquina</option>
+                            <option value="100018">100018</option>
+                            <option value="100019">100019</option>
+                            <option value="100020">100020</option>
+                            <option value="100021">100021</option>
+                            <option value="100022">100022</option>
+                            <option value="100023">100023</option>
+                        </select>
+                        <span class="maquina-code-span hidden-span"></span>
+                    </td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <select class="maquina-select" onchange="updateMaquinaCode(this);">
+                            <option value="" selected disabled>Selecione a máquina</option>
+                            <option value="100018">100018</option>
+                            <option value="100019">100019</option>
+                            <option value="100020">100020</option>
+                            <option value="100021">100021</option>
+                            <option value="100022">100022</option>
+                            <option value="100023">100023</option>
+                        </select>
+                        <span class="maquina-code-span hidden-span"></span>
+                    </td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <select class="maquina-select" onchange="updateMaquinaCode(this);">
+                            <option value="" selected disabled>Selecione a máquina</option>
+                            <option value="100018">100018</option>
+                            <option value="100019">100019</option>
+                            <option value="100020">100020</option>
+                            <option value="100021">100021</option>
+                            <option value="100022">100022</option>
+                            <option value="100023">100023</option>
+                        </select>
+                        <span class="maquina-code-span hidden-span"></span>
+                    </td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <select class="maquina-select" onchange="updateMaquinaCode(this);">
+                            <option value="" selected disabled>Selecione a máquina</option>
+                            <option value="100018">100018</option>
+                            <option value="100019">100019</option>
+                            <option value="100020">100020</option>
+                            <option value="100021">100021</option>
+                            <option value="100022">100022</option>
+                            <option value="100023">100023</option>
+                        </select>
+                        <span class="maquina-code-span hidden-span"></span>
+                    </td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                </tr>
+            </table>
+
+            <table>
+                <thead>
+                    <tr>
+                        <td style="width: 25%;"><b>OBSERVAÇÕES:</b></td>
+                        <td style="width: 25%;"><b>INSUMO:</b></td>
+                        <td style="width: 25%;"><b>REND. P/HA:</b></td>
+                        <td style="width: 25%;"><b>UTILIZAÇÃO:</b></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="text" class="observacao-input"></td>
+                        <td>
+                            <select class="insumo-select"></select>
+                            <span class="insumo-code-span hidden-span"></span>
+                        </td>
+                        <td><input type="text" class="rend-p-ha-input"></td>
+                        <td><input type="text" class="utilizacao-input"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" class="observacao-input"></td>
+                        <td>
+                            <select class="insumo-select"></select>
+                            <span class="insumo-code-span hidden-span"></span>
+                        </td>
+                        <td><input type="text" class="rend-p-ha-input"></td>
+                        <td><input type="text" class="utilizacao-input"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" class="observacao-input"></td>
+                        <td>
+                            <select class="insumo-select"></select>
+                            <span class="insumo-code-span hidden-span"></span>
+                        </td>
+                        <td><input type="text" class="rend-p-ha-input"></td>
+                        <td><input type="text" class="utilizacao-input"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" class="observacao-input"></td>
+                        <td>
+                            <select class="insumo-select"></select>
+                            <span class="insumo-code-span hidden-span"></span>
+                        </td>
+                        <td><input type="text" class="rend-p-ha-input"></td>
+                        <td><input type="text" class="utilizacao-input"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" class="observacao-input"></td>
+                        <td>
+                            <select class="insumo-select"></select>
+                            <span class="insumo-code-span hidden-span"></span>
+                        </td>
+                        <td><input type="text" class="rend-p-ha-input"></td>
+                        <td><input type="text" class="utilizacao-input"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table style="margin-bottom: 20px;">
+                <tr>
+                    <td style="width: 50%; height: 60px;"><b>Observação: <input type="text" class="observacao-input-rodape"></b><br><br><br></td>
+                    <td style="width: 50%;"><b>Ass. Super. / Coord.:</b><br><br><br></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="button-container no-print">
+        <button class="add-insumo-button" onclick="addInsumo()">Adicionar Insumo</button>
+        <button class="add-os-button" onclick="addOS()">Adicionar nova O.S.</button>
+        <button class="verify-os-button" onclick="verifyAllOS()">Verificar OS's</button>
+        <button class="print-button" onclick="printAll()">Imprimir todas as O.S.</button>
+    </div>
+
+    <script>
+    const operacaoToCusto = {
+        "464": { planta: "702", soca: "703" },
+        "465": { planta: "1635", soca: "1636" },
+        "466": { planta: "82", soca: "101" },
+        "467": { planta: "82", soca: "101" },
+        "468": { planta: "82", soca: "101" },
+        "470": { planta: "81", soca: "100" },
+        "471": { planta: "79", soca: "98" },
+        "472": { planta: "867", soca: "868" },
+        "480": { planta: "702", soca: "703" },
+        "489": { planta: "1635", soca: "1636" },
+        "490": { planta: "1635", soca: "1636" },
+        "491": { planta: "1635", soca: "1636" },
+        "560": { planta: "2517", soca: "2518" },
+        "561": { planta: "2517", soca: "2518" },
+        "564": { planta: "2610", soca: "2615" },
+        "565": { planta: "2611", soca: "2616" },
+        "566": { planta: "2612", soca: "2617" },
+        "567": { planta: "2613", soca: "2618" },
+        "568": { planta: "2614", soca: "2619" },
+        "946": { planta: "999", soca: "999" },
+        "911": { planta: "999", soca: "999" },
+        "1029": { planta: "999", soca: "999" }
+    };
+
+    const fazendaNames = {
+        "392": "ABARÉ", "562": "ACRE", "708": "ACUDE JOAO PESSOA", "997": "ACUDE DECANTACAO",
+        "176": "AGUAS BELAS", "549": "ALAGOAS", "228": "ALAGOINHAS", "367": "ALIANÇA",
+        "121": "ALEMANHA", "560": "AMAPA", "559": "AMAZONAS", "644": "ARAPIRACA",
+        "219": "ARACAJU", "101": "AREIA", "295": "ARCOVERDE", "112": "ARGENTINA A",
+        "275": "ARIZONA", "340": "ARARIPINA", "916": "AREA DE COMPOSTAGEM", "920": "ASSOCIACAO TOURÃO",
+        "320": "ATLANTA", "540": "BAHIA", "601": "BAHAMAS A", "608": "BARBADOS",
+        "165": "BARREIRAS", "208": "BELEM", "108": "BELGICA A", "622": "BELIZE",
+        "602": "BERMUDAS", "125": "BOLIVIA", "199": "BOM CONSELHO", "333": "BONFIM",
+        "648": "BOSTON", "230": "BRASILIA A", "289": "BRITANICA", "154": "BUIQUE",
+        "637": "BULGARIA A", "641": "BULGARIA B", "220": "CABROBO", "366": "CAETES",
+        "273": "CALIFORNIA", "356": "CAMARAGIBE", "380": "CAMPO EXPERIMENTAL", "388": "CANUDOS",
+        "928": "CARREGAMENTO DE TORTA", "361": "CARPINA", "229": "CARUARU A", "394": "CASA NOVA",
+        "555": "CEARA", "299": "CHICAGO", "117": "CHILE A", "111": "COLOMBIA",
+        "290": "COLUMBIA", "277": "COLORADO", "651": "CONDADO", "156": "CORRENTES",
+        "605": "COSTA RICA", "115": "CUBA", "393": "CURAÇA", "253": "DALLAS",
+        "298": "DAKOTA", "647": "DAYTONA", "345": "DENVER", "930": "DEPTO 1",
+        "934": "DEPTO 2", "937": "DEPTO 3", "940": "DEPTO 4", "246": "DETROIT",
+        "627": "DINAMARCA", "999": "DIVERSOS", "922": "DIVID", "198": "DOMINICANA A",
+        "114": "EQUADOR A", "123": "ESPANHA", "927": "ESTACIONAMENTO TRÁFEGO", "127": "EST. EXPERIMENTAL A (CHILE)",
+        "159": "EST. EXPERIMENTAL B (CHILE)", "383": "FEIRA DE SANTANA", "327": "FILADELFIA ANEXO",
+        "630": "FINLANDIA", "362": "FLORES", "278": "FLORIDA", "397": "FLORESTA",
+        "207": "FORTALEZA", "634": "FRANCA", "652": "FRONTEIRAS", "914": "FRUTEIRAS MANDACARÚ",
+        "227": "GARANHUNS A", "542": "GOIAS", "365": "GOIANA", "399": "GRANADA A",
+        "619": "GRANADA", "294": "GRAVATA", "633": "GRECIA", "603": "GUATEMALA A",
+        "624": "HAITI", "339": "HAWAI", "109": "HOLANDA", "611": "HONDURAS",
+        "649": "HOUSTON", "105": "HUNGRIA", "359": "IGARASSU", "386": "ILHEUS",
+        "300": "INAJA", "338": "INDIANAPOLIS", "642": "INDIANAPOLIS B", "279": "INDIANA",
+        "341": "IPOJUCA", "402": "IRECE", "357": "ITAMARACA", "385": "ITAPARICA",
+        "128": "ITALIA", "231": "ITABUNA A", "113": "JAMAICA A", "197": "JAVA",
+        "355": "JABOATAO", "387": "JAGUARARI", "389": "JEREMOABO", "215": "JOAO PESSOA",
+        "223": "JUAZEIRO", "256": "LAS VEGAS", "364": "LIMOEIRO", "398": "LIMOEIRO A",
+        "200": "LONDRINA", "204": "LONDRINA A", "257": "LOS ANGELES", "205": "MACEIO",
+        "255": "MACEIO ANEXO", "201": "MANAUS", "919": "MANUTENÇÃO MECANICA", "917": "MANUTENÇAO-BOARRACHARIA",
+        "918": "MANUTENÇAO-LUBRIFICAÇÃO", "203": "MARABA A", "266": "MARABA ANEXO",
+        "553": "MARANHAO", "546": "MATO GROSSO", "319": "MENPHIS", "131": "MEXICO A",
+        "181": "MEXICO C", "543": "MINAS GERAIS", "544": "MINAS GERAIS A",
+        "400": "MINNESOTA", "281": "MISSISSIPI", "274": "MISSOURI", "282": "MONTANA",
+        "288": "MONTREAL", "102": "MURICI", "206": "NATAL", "245": "NAZARE B",
+        "283": "NEVADA", "618": "NICARAGUA", "194": "NITEROI", "628": "NORUEGA",
+        "271": "NOVA YORK", "915": "OFICINA", "354": "OLINDA", "646": "ORLANDO",
+        "284": "OREGON", "342": "OURICURI", "368": "OURO PRETO", "558": "PARA",
+        "551": "PARAIBA", "224": "PALMARES I", "225": "PALMARES II", "126": "PALMEIRA",
+        "358": "PAULISTA", "129": "PATOS A", "905": "PATIO", "152": "PAULO AFONSO",
+        "166": "PAULO AFONSO B", "241": "PELOTAS A", "136": "PENEDO B",
+        "272": "PENSILVANIA", "550": "PERNAMBUCO", "124": "PERU A", "226": "PETROLINA",
+        "268": "PETROLANDIA", "252": "PHOENIX", "554": "PIAUI", "130": "PICOS",
+        "178": "PILAR", "347": "PIVOT CENT 18", "567": "PIVOT CENT 14", "565": "PIVOT CENT 15",
+        "568": "PIVOT CENT 16", "569": "PIVOT CENT 17", "404": "PIVOT CENT 26",
+        "106": "POLONIA", "217": "PORTO ALEGRE", "609": "PORTO RICO", "384": "PORTO SEGURO",
+        "929": "POSTO DE COMBUSTÍVEL", "120": "PORTUGAL", "291": "QUEBEC", "211": "QUEBRANGULO",
+        "218": "R.DE JANEIRO", "221": "RECIFE", "556": "RIO GRANDE DO NORTE",
+        "636": "RUSSIA", "239": "SALGUEIRO A", "216": "SALVADOR", "509": "SANTA MARTA",
+        "508": "SANTA ROSA", "293": "SANTA FE", "317": "SANTA BARBARA", "202": "SANTAREM A",
+        "214": "SANTANA", "504": "SANTO ANTONIO", "503": "SAO JOAO", "377": "SAO JOSE DO EGITO",
+        "213": "SAO LUIZ A", "303": "SAO LUIZ ANEXO", "502": "SAO PAULO", "501": "SAO PEDRO",
+        "505": "SAO SEBASTIAO", "506": "SAO JORGE", "184": "SATUBA", "318": "SAVANNAH",
+        "407": "SENTO SÉ", "372": "SERRA TALHADA", "552": "SERGIPE", "396": "SERTANIA",
+        "391": "SOBRADINHO", "122": "SUICA", "629": "SUECIA", "360": "SURUBIM",
+        "653": "TACARATU", "363": "TAMANDARE", "287": "TERRA NOVA", "285": "TEXAS",
+        "541": "TOCANTINS", "907": "TRANSCANA", "909": "TRANS SALITRE", "607": "TRINIDADE",
+        "344": "TRIUNFO", "138": "TRUJILLO A", "645": "TUCSON", "639": "TURQUIA",
+        "390": "UAUÁ", "638": "UCRANIA", "116": "URUGUAI", "167": "VALENCA",
+        "118": "VENEZUELA A", "292": "VICTORIA", "209": "VILA VELHA", "210": "VILA VELHA(ANEXO)",
+        "801": "VILAS", "650": "VIRGINIA", "134": "WASHINGTON C", "631": "YUGUSLAVIA"
+    };
+
+    const fazendaKeysSorted = Object.keys(fazendaNames).sort((a, b) => fazendaNames[a].localeCompare(fazendaNames[b]));
+
+    const fazendaTalhoes = {
+        "101": [1, 14], "102": [1, 12], "105": [1, 26], "106": [1, 11], "108": [1, 13],
+        "109": [1, 34], "111": [1, 34], "112": [1, 32], "113": [1, 11], "114": [1, 14],
+        "115": [1, 29], "116": [1, 32], "117": [1, 7], "118": [1, 6], "120": [1, 16],
+        "121": [1, 15], "122": [1, 35], "123": [1, 22], "124": [1, 4], "125": [1, 21],
+        "126": [1, 15], "127": [1, 2], "128": [1, 40], "129": [1, 8], "130": [1, 11],
+        "131": [1, 17], "134": [1, 13], "136": [1, 19], "138": [1, 11], "152": [1, 7],
+        "154": [1, 7], "156": [1, 13], "159": [3, 7], "165": [1, 12], "166": [1, 10],
+        "167": [1, 10], "176": [1, 13], "178": [1, 15], "181": [18, 23], "184": [1, 11],
+        "194": [1, 15], "197": [1, 13], "198": [1, 13], "199": [1, 13], "200": [1, 12],
+        "201": [1, 9], "202": [1, 20], "203": [1, 19], "204": [13, 24], "205": [1, 21],
+        "206": [1, 9], "207": [1, 16], "208": [1, 10], "209": [1, 24], "210": [1, 4],
+        "211": [1, 43], "213": [1, 13], "214": [1, 14], "215": [1, 21], "216": [1, 10],
+        "217": [1, 7], "218": [1, 6], "219": [1, 8], "220": [1, 11], "221": [1, 14],
+        "223": [1, 12], "224": [1, 5], "225": [1, 12], "226": [1, 10], "227": [1, 8],
+        "228": [1, 12], "229": [1, 14], "230": [1, 6], "231": [1, 8], "234": [1, 6],
+        "238": [1, 19], "239": [1, 17], "241": [1, 11], "242": [1, 14], "245": [1, 9],
+        "246": [1, 9], "252": [1, 11], "253": [1, 9], "255": [1, 11], "256": [1, 15],
+        "257": [1, 17], "266": [1, 12], "268": [1, 20], "271": [1, 9], "272": [1, 10],
+        "273": [1, 9], "274": [1, 8], "275": [1, 16], "276": [1, 23], "277": [1, 11],
+        "278": [1, 18], "279": [1, 10], "281": [1, 13], "282": [1, 20], "283": [1, 22],
+        "284": [1, 14], "285": [1, 14], "287": [1, 8], "288": [1, 11], "289": [1, 8],
+        "290": [1, 12], "291": [1, 18], "292": [1, 21], "293": [1, 28], "294": [1, 12],
+        "295": [1, 14], "297": [1, 8], "298": [1, 11], "299": [1, 11], "300": [1, 14],
+        "303": [1, 11], "317": [1, 13], "318": [1, 17], "319": [1, 13], "320": [1, 20],
+        "327": [1, 14], "331": [1, 13], "333": [1, 16], "338": [1, 14], "339": [1, 13],
+        "340": [1, 12], "341": [1, 8], "342": [1, 11], "344": [1, 8], "345": [1, 12],
+        "347": [1, 3], "354": [1, 15], "355": [1, 10], "356": [1, 9], "357": [1, 15],
+        "358": [1, 11], "359": [1, 6], "360": [1, 17], "361": [1, 10], "362": [1, 13],
+        "363": [1, 8], "364": [10, 16], "365": [1, 11], "366": [1, 15], "367": [9, 17],
+        "368": [1, 62], "372": [1, 24], "377": [1, 12], "380": [1, 10], "381": [1, 21],
+        "383": [1, 13], "384": [1, 12], "385": [1, 12], "386": [1, 12], "387": [1, 15],
+        "388": [1, 14], "389": [1, 11], "390": [1, 12], "391": [1, 13], "392": [1, 13],
+        "393": [1, 12], "394": [1, 11], "396": [1, 11], "397": [1, 16], "398": [1, 9],
+        "399": [1, 13], "400": [1, 13], "402": [1, 11], "404": [1, 4], "405": [1, 4],
+        "406": [1, 4], "407": [1, 8], "501": [1, 11], "502": [1, 11], "503": [1, 10],
+        "504": [1, 9], "505": [1, 8], "506": [1, 12], "507": [1, 12], "508": [1, 14],
+        "509": [1, 10], "510": [1, 10], "540": [1, 25], "541": [1, 33], "542": [1, 26],
+        "543": [1, 13], "544": [14, 50], "546": [1, 19], "549": [1, 13], "550": [1, 23],
+        "551": [1, 38], "552": [1, 11], "553": [1, 24], "554": [1, 11], "555": [1, 22],
+        "556": [1, 8], "558": [1, 23], "559": [1, 11], "560": [1, 15], "562": [1, 13],
+        "565": [1, 5], "567": [1, 4], "568": [1, 3], "569": [1, 3], "601": [1, 7],
+        "602": [1, 21], "603": [1, 34], "605": [1, 14], "607": [1, 10], "608": [1, 33],
+        "609": [1, 25], "611": [1, 22], "618": [1, 12], "619": [1, 16], "622": [1, 11],
+        "624": [1, 19], "627": [1, 14], "628": [1, 28], "629": [1, 13], "630": [1, 23],
+        "631": [1, 8], "633": [1, 13], "634": [1, 17], "636": [1, 18], "637": [1, 9],
+        "638": [1, 16], "639": [1, 11], "641": [1, 13], "642": [1, 10], "644": [1, 11],
+        "645": [1, 12], "646": [1, 9], "647": [1, 8], "648": [1, 8], "649": [1, 10],
+        "650": "1, 5", "651": [1, 10], "652": [1, 6], "653": [1, 8], "700": [1, 1],
+        "708": [1, 1], "801": [1, 1], "905": [1, 1], "907": [1, 1], "909": [1, 1],
+        "910": [1, 1], "911": [1, 1], "914": [1, 1], "915": [1, 1], "916": [1, 1],
+        "917": [1, 1], "918": [1, 1], "919": [1, 1], "920": [1, 1], "922": [1, 1],
+        "927": [1, 1], "928": [1, 1], "929": [1, 1], "930": [1, 1], "934": [1, 1],
+        "937": [1, 1], "940": [1, 1], "950": [1, 1], "997": [1, 2], "999": [1, 1]
+    };
+
+    const insumosData = [
+        { value: "58578", text: "ACTARA" }, { value: "104348", text: "ALMAX" },
+        { value: "60854", text: "AMPLIGO" }, { value: "98058", text: "ATUMUS" },
+        { value: "102817", text: "BORO" }, { value: "65456", text: "BORO PLUS" },
+        { value: "36423", text: "CALISTO" }, { value: "91199", text: "CAPTURE" },
+        { value: "81355", text: "CERTEIRO" }, { value: "90748", text: "COACT" },
+        { value: "12842", text: "COMBINE" }, { value: "12847", text: "CURAVIAL" },
+        { value: "53609", text: "DIURON" }, { value: "14139", text: "ETHREL" },
+        { value: "110261", text: "EVOK" }, { value: "99939", text: "FALCON" },
+        { value: "58855", text: "FIPRONIL" }, { value: "53209", text: "FLUMIZIM" },
+        { value: "49031", text: "FRONT" }, { value: "99941", text: "IHAROL" },
+        { value: "99940", text: "JAMATO" }, { value: "102815", text: "MAGNÉSIO" },
+        { value: "53409", text: "MAGNUS" }, { value: "62976", text: "METARRIZIUN" },
+        { value: "72533", text: "OMNIFIX" }, { value: "65453", text: "PAWER CANA" },
+        { value: "102816", text: "PESO" }, { value: "101064", text: "PROGIBB" },
+        { value: "84476", text: "PROVENC" }, { value: "89069", text: "QRAB BLOOM" },
+        { value: "81816", text: "REATOR" }, { value: "101038", text: "REVOLUX" },
+        { value: "67030", text: "RIPER" }, { value: "66438", text: "TALISMAN" },
+        { value: "59779", text: "ZARTAN" },
+    ];
+    let insumos = [...insumosData].sort((a, b) => a.text.localeCompare(b.text));
+
+    const areaData = [11.54, 10.15, 7.26, 9.85, 8.99, 8.86, 9.12, 5.63, 10.74, 8.64, 6.43, 8.6, 3.95, 3.32, 9.7, 4.96, 8.61, 8.6, 7.35, 5.67, 11.05, 7.01, 5.26, 7.39, 3.11, 9.32, 3.15, 3.16, 4.02, 3.89, 4.02, 4.13, 4.12, 4.67, 4.46, 4.75, 4.73, 3.89, 1.51, 3.32, 3.73, 3.92, 4.1, 4.64, 4.66, 4.04, 4.89, 4.78, 6.67, 5.04, 4.62, 2.38, 7.66, 11.42, 11.22, 9.79, 2.68, 11.69, 6, 8.81, 10.58, 5.61, 3.35, 12.26, 9.83, 7.82, 8.03, 7.87, 7.73, 8.52, 7.48, 7.61, 8.36, 10.03, 9.63, 5.6, 3.76, 4.93, 1.63, 3.49, 3.75, 3.89, 0.99, 3.52, 3.27, 1.83, 1.04, 2.26, 0.91, 3.99, 1.38, 2.12, 2.6, 3.54, 1.58, 1.56, 1.74, 1.67, 1.49, 0.96, 1.2, 2.73, 3.08, 3.06, 3.59, 1.22, 3.83, 5.59, 2.06, 1.73, 1.16, 2.91, 6.62, 5.33, 3.26, 4.2, 3.19, 2.74, 4.31, 5.14, 5, 4.64, 1.38, 1.29, 2, 2.02, 2.78, 3.3, 4.02, 4.5, 4.57, 2.14, 2.96, 2.22, 1.29, 0.95, 1.7, 2.57, 1.67, 2.28, 0.93, 2.86, 2.48, 1.98, 3.03, 3.43, 3.17, 3.25, 3.21, 2.79, 1.6, 2.31, 2.96, 2.66, 3.14, 3.03, 2.7, 5.25, 5.03, 4.55, 3.99, 3.82, 1.42, 2.92, 4.61, 5.34, 4.52, 5.04, 5.15, 5.64, 4.31, 1.32, 1.25, 5.32, 4.98, 2.97, 7.07, 11.64, 11.88, 8.64, 3.93, 7.19, 11.09, 3.46, 11.24, 7.02, 3.54, 5.7, 6.14, 7.43, 6.72, 7.56, 7.98, 7.98, 6.96, 6.99, 8.12, 7.6, 8.21, 6.75, 4.63, 1.59, 2.74, 2.9, 3.51, 3.59, 3.04, 1.13, 7.67, 5.85, 2.58, 3.5, 4.39, 5.19, 6.45, 6.48, 5.79, 2.1, 3.01, 2.54, 2.3, 2.75, 2.52, 1.05, 4.08, 4.97, 3.83, 3.55, 3.07, 3.15, 2.97, 3.17, 2.92, 3.7, 3.01, 3.73, 3.65, 3.4, 1.81, 1.25, 2.08, 2.9, 2.67, 2.32, 1.87, 2.2, 3.52, 3.51, 2.11, 2.03, 2.42, 2.01, 2.4, 2.34, 1.1, 1.69, 1.73, 1.45, 1.41, 2.21, 2.12, 1.91, 7.06, 9.06, 14.06, 13.88, 15.88, 13.91, 9.41, 2.74, 20.15, 19.52, 14.82, 10.79, 7.28, 3.62, 3.41, 3.11, 3.22, 3.22, 5.82, 4.07, 6.8, 5.26, 3.36, 2.97, 3.75, 4.23, 5.81, 5.32, 4.6, 7.86, 8.57, 9.4, 7.95, 6.26, 9.89, 9, 8.23, 3.17, 3.42, 2.95, 1.42, 8.3, 4.1, 4.33, 1.12, 2.63, 1.83, 2.12, 1.07, 2.69, 1.19, 1.6, 1.73, 1.1, 1.28, 2.2, 2.55, 1.24, 1.27, 1.91, 1.69, 1.65, 2.24, 4.53, 4, 4.6, 4.02, 4.61, 2.69, 1.52, 2.59, 1.34, 3.81, 3.86, 3.55, 2.86, 4.13, 1.72, 1.93, 2.4, 2.37, 2.87, 2.51, 3.66, 5.59, 5.8, 2.21, 2.28, 2.23, 3.15, 2.26, 3.72, 3.24, 4.45, 1.78, 1.19, 7.16, 1.49, 4.01, 5.25, 3.74, 21.05, 18.98, 21.54, 19.73, 3.52, 3.77, 3.97, 3.65, 3.75, 3.69, 3.64, 3.74, 1.78, 1.98, 1.88, 4.34, 3.78, 3.76, 3.71, 3.72, 3.86, 3.56, 3.58, 3.51, 2.78, 10.52, 6.17, 3.37, 9.06, 7.32, 7.15, 4.27, 4.47, 2.65, 7.86, 6.72, 10.51, 4.42, 9.59, 7.12, 1.54, 3.15, 1.5, 2.47, 2.62, 2.69, 2.27, 1.79, 1.84, 1.41, 1.06, 2.6, 2.56, 2.21, 3.79, 2.54, 4.08, 2.05, 1.19, 2.79, 3.79, 2.43, 4.55, 5.14, 1.73, 3.11, 4.32, 2.29, 2.12, 2.55, 2.73, 2.97, 3.8, 4.32, 3.97, 2.68, 2.67, 4.53, 3.78, 5, 3.88, 2.89, 3.55, 2.76, 1.32, 3.39, 2.78, 2.71, 2.66, 2.36, 3.47, 9.41, 3.17, 8, 9.18, 5.29, 6.77, 0.83, 11.63, 3.59, 11.93, 3.44, 7.19, 3.37, 4.42, 8.32, 8.48, 8.47, 7.94, 7.26, 4.3, 6.02, 5.84, 7.51, 7.73, 7.37, 6.53, 3.53, 6.05, 9.15, 9.21, 8.63, 7.03, 7.39, 8.6, 6.27, 10.64, 3.83, 5.19, 4.24, 3.62, 7.35, 1.71, 4.56, 4.51, 4.22, 3.41, 5.38, 2.23, 3.05, 6.25, 5.06, 5.23, 5.32, 4.33, 5.83, 4.57, 4.91, 1.4, 3.23, 9.36, 8.15, 6.99, 7.05, 8.43, 5.32, 3.96, 8.88, 10.2, 9.58, 10.51, 9.58, 9.52, 10.29, 8.2, 8.3, 8.92, 5.26, 5.27, 5.84, 7.53, 6.17, 9.08, 8.43, 9.23, 11.22, 10.9, 10.8, 7.09, 5.58, 8.49, 5.21, 7.05, 7.57, 7.56, 9.36, 6.27, 10.28, 2.7, 2.82, 2.89, 2.96, 1.71, 7.41, 10.83, 5.87, 6.22, 5.68, 9.59, 5.55, 9.43, 7.78, 9.66, 3.79, 8.05, 6.88, 6.31, 6.5, 7.43, 3.94, 3.52, 7.47, 6.81, 4.17, 10.37, 8.11, 7.18, 11.49, 11.87, 2.23, 7.31, 7.96, 7.63, 9.94, 5.66, 5.91, 8.26, 9.97, 6.09, 5.62, 4.17, 8.05, 6.66, 10.85, 8.76, 6.2, 7.15, 6.61, 4.11, 8.43, 9.46, 8.29, 8.18, 9.22, 6.04, 10.54, 8.53, 3.57, 5.93, 7.42, 4.31, 4.65, 5.78, 2.1, 2.93, 3.38, 4.63, 5.74, 4.54, 4.53, 4.87, 3.21, 2.78, 10.65, 9.46, 7.26, 6.09, 6.54, 6.55, 6.69, 10.36, 6.46, 8.49, 6.15, 8.79, 8.5, 2.87, 7.86, 5.21, 7.21, 4.99, 3.6, 7.34, 7.15, 7.49, 8.68, 8.49, 6.57, 5.95, 8.12, 6.83, 6.62, 9.44, 3.94, 9.64, 10.29, 11.64, 5, 11.41, 7.69, 9.64, 9.96, 11.15, 10.09, 11.05, 9.33, 9.3, 6.85, 7.51, 7.94, 8.03, 12.28, 10.55, 4.45, 3.66, 8.31, 6.07, 4.02, 9.74, 3.42, 8.97, 10.18, 10.72, 5.76, 6.34, 6.64, 7.21, 7.45, 6.5, 5.39, 7.19, 6.64, 6.61, 6.97, 6.78, 6.06, 6.36, 6.93, 5.46, 4.46, 3.55, 2.9, 1.96, 1.22, 0.94, 4.04, 4.48, 4.35, 4.87, 4.49, 3.33, 2.57, 3.14, 0.95, 4.45, 3.87, 4.11, 3.28, 2.49, 4.28, 4.39, 5.58, 4.19, 3.41, 4.85, 1.2, 2.16, 1.28, 1.41, 1.96, 3.14, 1.67, 3.04, 2.1, 0.99, 1.87, 2.64, 1.16, 1.43, 2.45, 1.05, 1.49, 1.03, 1.78, 1.82, 1.73, 1.02, 2.26, 1.69, 1.51, 2.98, 2.49, 2.46, 2.65, 2.45, 3.54, 6.53, 6.91, 6.84, 6.89, 5.83, 5.22, 5.96, 6.7, 6.37, 6, 6.62, 6.8, 2.59, 3.61, 5.1, 3.51, 1.63, 2.94, 7.34, 5.5, 2.72, 10.62, 9.16, 9.11, 7.72, 8.39, 8.84, 3.7, 6.35, 2.85, 9.19, 7.89, 9.38, 9.42, 7.7, 5.44, 2.51, 9.57, 9.18, 7.38, 3.63, 0.82, 4.97, 5.23, 4.34, 4.26, 8.03, 8.51, 8.55, 8.75, 7.45, 6.46, 6.64, 6.62, 6.77, 5.8, 5.54, 6.67, 6.83, 6.9, 3.25, 4.67, 2.61, 3.31, 2.25, 1.88, 2.62, 3.55, 1.47, 2.42, 3.93, 1.39, 5.79, 4.88, 0.86, 4.74, 1.59, 4.68, 3.74, 1.14, 9.33, 2.61, 3.57, 4.6, 3.46, 2.85, 1.38, 0.56, 0.95, 1, 0.5, 1.94, 2.77, 3.51, 3.04, 1.65, 1.19, 2.95, 2.67, 1.96, 0.7, 0.59, 0.7, 0.4, 0.57, 0.68, 0.34, 2.41, 2.59, 0.78, 0.47, 0.36, 0.37, 2.89, 0.83, 0.49, 0.31, 2.5, 0.98, 0.51, 1.88, 1.31, 1.7, 1.49, 0.59, 0.16, 0.12, 8.57, 6.27, 4.84, 6.29, 8.08, 8.82, 9.02, 8.73, 3.85, 12.15, 6.17, 7.16, 2.01, 3.57, 5.3, 2.1, 2.84, 3.7, 6.52, 4.7, 2.51, 2.01, 2.13, 2.76, 2.81, 2.25, 1.34, 1.87, 1.16, 1.43, 4.34, 2.68, 2.17, 1.3, 1.18, 1.69, 2.14, 1.63, 1.64, 3.94, 3.3, 3.4, 2.3, 4.52, 3.44, 2.46, 1.74, 2.82, 6.57, 6.6, 5.4, 5.41, 5.51, 8.68, 8.1, 6.25, 6.19, 5.14, 15.16, 14.75, 13.65, 3.76, 4.6, 3.21, 1.96, 10.86, 8.2, 8.02, 8.43, 7.52, 12.68, 9.95, 11.01, 9.28, 1.36, 3.7, 4.15, 3.59, 1.51, 3.96, 3.94, 5.03, 6.49, 6.76, 6.14, 5.63, 5.21, 4.89, 3.9, 1.47, 1.86, 3.32, 3.83, 5.1, 4.63, 3.63, 4.03, 4.08, 4.37, 3.67, 1.51, 5.52, 4.16, 1.99, 6.14, 9.42, 9.26, 8.61, 6.62, 7.91, 6.62, 8.06, 8.41, 7.35, 9.31, 7.53, 5.11, 9.45, 4.72, 3.94, 5.62, 6.62, 4.64, 3.95, 5.57, 7.84, 5.24, 7.3, 8.66, 4.36, 1.25, 7.29, 5.87, 4.66, 6.08, 8.22, 3.06, 4.08, 9.14, 1.36, 10.28, 10.85, 11.69, 9.93, 10.9, 9.98, 10.38, 10.31, 10.69, 9.68, 10.85, 9.16, 6.65, 8.79, 10.26, 9.18, 3.56, 6.08, 5.38, 7.82, 5.63, 4.71, 4.46, 8.94, 8.59, 8.23, 7.85, 8.46, 8.14, 8.56, 8.21, 9.53, 8.13, 9.79, 7.83, 5.24, 9.31, 9.99, 9.57, 8.03, 10.22, 8.28, 9.91, 9.9, 10.18, 9.82, 10.19, 9.32, 8.94, 10.88, 10.73, 4.05, 0.83, 3.58, 2.93, 2.6, 2.26, 2.97, 3.25, 2.84, 2.37, 4.08, 4.29, 3.41, 4.21, 2.79, 3.37, 3.45, 4.6, 2.8, 2.84, 2.43, 2.21, 2.53, 3.24, 4.75, 3.63, 4.22, 4.69, 5.31, 3.53, 3.54, 5.25, 5.99, 5.03, 3.45, 5.95, 6.67, 6.1, 4.86, 3.8, 6.26, 3.92, 2.94, 6.9, 6.13, 5.03, 4.56, 4.06, 3.68, 3.66, 3.27, 2.11, 2.63, 2.98, 2.7, 3.66, 7.61, 5.12, 5.35, 3.25, 2.13, 2.51, 4.27, 6.7, 6.78, 3.22, 3, 10.11, 9.67, 12.03, 8.3, 9.28, 10.41, 9.83, 7.13, 4.54, 7.96, 9.93, 7.99, 8.16, 3.53, 9.56, 8.31, 10.52, 8.16, 6.91, 3.84, 4.1, 6.61, 6.34, 8.05, 4.01, 8.13, 8.37, 11.95, 12.47, 8.81, 10.25, 8.36, 5.73, 4.82, 4.01, 8.97, 5.62, 8.68, 2.5, 1.99, 2.95, 2.71, 2.7, 2.26, 2.25, 1.97, 2.03, 2.04, 2.3, 5.77, 7.16, 6.27, 5.09, 9.9, 7.77, 10.21, 10.72, 4.52, 10.15, 8.38, 5.97, 1.2, 5.7, 3.4, 10.35, 4.04, 3.84, 7.56, 12.18, 6.29, 5.57, 5.49, 4.62, 8.94, 4.57, 9.99, 10.73, 3.82, 3.66, 7.3, 5.01, 2.74, 1.41, 1.16, 0.89, 2.03, 1.87, 0.77, 1.14, 1.1, 1.08, 1.15, 0.96, 6.78, 6.63, 3.78, 4.82, 5.53, 7.88, 4.54, 7.18, 3.15, 5.68, 4.37, 3.88, 5.43, 3.03, 2.36, 3.69, 8.39, 6.03, 5.65, 4.16, 7.16, 4.36, 4.91, 5.43, 4.54, 6.76, 6.23, 7.18, 5.68, 12.15, 9.11, 10.74, 10.43, 7.69, 7.54, 7.75, 8.02, 6.09, 5.96, 10.29, 2.15, 12.85, 9.15, 7.99, 8.74, 4.84, 7.57, 5.1, 11.83, 11.24, 11.72, 11.69, 11.94, 12.07, 11.07, 11.92, 4.4, 5.92, 5.33, 5.64, 5.23, 5.09, 5.3, 5.94, 5.25, 7.87, 5.65, 6.94, 5.5, 8.34, 5.89, 3.18, 3.78, 5.06, 5.18, 5.78, 5.73, 6.5, 2.95, 2.65, 1.75, 7.26, 6.58, 5.86, 5.51, 4.66, 4, 3.41, 2.3, 3.12, 3.23, 1.12, 2.06, 2.56, 2.08, 6.36, 6.09, 7.55, 7.72, 7.58, 7, 6.69, 6.7, 6.58, 6.54, 5.85, 3.95, 2.4, 2.12, 0.71, 1.6, 2.11, 2.41, 2.16, 1.93, 1.7, 1.33, 2.26, 1.49, 3.03, 2.45, 2.23, 1.33, 3.32, 7.75, 7.31, 7.9, 8.38, 8.09, 8.07, 8.01, 7.67, 5.51, 4.97, 8.7, 9.6, 9.23, 7.34, 9.22, 5.68, 9.2, 9.3, 11, 9.86, 11.95, 6.88, 10.46, 3.6, 3.59, 2.2, 4.12, 3.82, 2.33, 4.39, 1.74, 1.11, 2.55, 2.83, 5.88, 3.37, 2.92, 2.07, 3.13, 1.84, 2.03, 2.51, 1.2, 4.76, 2.92, 3.22, 3.35, 3.58, 3.76, 4.13, 4.76, 5.45, 5.95, 4.77, 4.76, 2.92, 3.22, 3.35, 3.58, 3.76, 4.13, 4.76, 5.45, 5.95, 4.77, 2.14, 3.62, 4.84, 9.33, 9.39, 5.02, 4.56, 4.34, 3.85, 2.81, 6.43, 6.47, 6.38, 6.08, 7.91, 9.64, 8.25, 3.2, 6.04, 10.14, 2.8, 2.12, 3.52, 7.74, 7.03, 9.05, 2.63, 5.93, 6.78, 7.47, 9.68, 7.12, 7.55, 9.44, 2.7, 9.46, 6.76, 8.84, 8.35, 2.29, 8.67, 8.64, 8.63, 7.53, 8.57, 8.1, 8.59, 14.29, 14.35, 14.33, 14.62, 13.98, 14.36, 14.26, 13.79, 6.33, 6.48, 6.4, 6.19, 6.62, 6.75, 6.6, 6.63, 6.25, 3.43, 1.67, 1.97, 7.77, 7.41, 5.49, 4.24, 7.83, 8.38, 6.9, 6.1, 2.91, 3.32, 8.22, 3.73, 6.5, 3.8, 6.8, 5.43, 5.27, 5.55, 1.4, 5.55, 3.66, 5.11, 5.24, 1.91, 1.31, 0.92, 1.32, 3.16, 2.36, 3.1, 1.79, 2.77, 5.79, 3.44, 4.03, 3.29, 3.86, 1.1, 3.28, 3.96, 2.14, 2.38, 1.68, 1.73, 1.13, 1.4, 3.64, 1.94, 2.48, 3.34, 1.35, 1.08, 1.21, 0.76, 1.55, 1.5, 1.56, 0.96, 0.67, 1, 1.9, 1.14, 2.88, 2.41, 2.59, 1.41, 2.38, 4.95, 8.67, 10.59, 9.08, 14.5, 8.06, 8.74, 9.62, 10.38, 6.39, 11.99, 8.88, 9.6, 9.5, 10.25, 4.56, 3.44, 7.18, 10.92, 7.49, 7.55, 4.85, 8.55, 7.63, 9.67, 12.23, 9.07, 9.87, 10.28, 9.54, 9.37, 9.4, 9.9, 8.17, 7.92, 5.24, 2.85, 7.36, 8.51, 1.74, 7.03, 9.71, 5.93, 9.21, 12.34, 5.04, 9.83, 10.52, 9.36, 10.24, 10.81, 10.41, 12.24, 10.32, 8.86, 4.86, 5.5, 6.36, 8.47, 5.73, 6.91, 8.11, 3.17, 5.38, 5.34, 5.93, 3.45, 6.14, 3.04, 5.65, 0.99, 3.64, 2.24, 2.33, 2.01, 1.14, 1.16, 0.86, 0.85, 2.6, 2.73, 11.67, 5.66, 7.6, 10.48, 7.81, 4.48, 9.2, 10.89, 4.08, 4.12, 9.07, 4.46, 5.35, 5.11, 3.66, 3.29, 3.63, 3.27, 8.78, 6.2, 3.29, 2.38, 2.94, 2.43, 3.45, 2.41, 1.85, 4.12, 5.12, 1.3, 3.63, 3.45, 2.78, 5.09, 3.19, 3.1, 3.2, 1.55, 3.35, 1.96, 2.37, 3.63, 3.45, 0.84, 1.69, 1.42, 2.21, 1.7, 1.45, 0.67, 1.17, 1.38, 1.01, 1.18, 0.64, 1.95, 1.66, 0.82, 1.88, 1.76, 0.71, 2.14, 1.29, 1.46, 2.14, 1.61, 2.05, 1.92, 3.63, 3.49, 2.11, 1.8, 1.88, 1.39, 0.95, 0.57, 0.3, 9.9, 11.73, 4.37, 6.14, 5.78, 8.21, 7.77, 6.29, 6.29, 10.31, 5.13, 6.37, 2.7, 3.06, 3.83, 2.48, 2.56, 2.23, 6.76, 2.35, 2.04, 4.39, 3.27, 2.04, 2.41, 2.77, 3.95, 6.55, 2.8, 5.78, 5.66, 5.16, 5.31, 5.47, 5.05, 5.17, 4.72, 4.59, 3.06, 3.64, 3.82, 4.58, 4.89, 6.96, 6.5, 4.79, 8.11, 4.83, 10.78, 8.29, 4.89, 5.67, 3.55, 5.6, 1.27, 6.5, 3.77, 7.95, 5.65, 8.78, 8.01, 9.09, 12.79, 6.72, 6.63, 7.01, 6.23, 5.69, 16.18, 16.45, 16.04, 16.48, 16.11, 16.44, 15.82, 16.19, 4.47, 6.12, 4.6, 6.31, 4.7, 5.65, 7.1, 11.52, 10.46, 8.79, 8.84, 8.68, 6.55, 6.18, 8.36, 8.72, 10.36, 6.03, 4.87, 4.14, 5.83, 6.92, 8.05, 6.42, 5.39, 5.46, 4.83, 5.04, 4.77, 6.65, 6.81, 17.58, 11.31, 15.15, 4.56, 4.86, 5.6, 5.13, 4.66, 4.99, 7.23, 5.9, 3.2, 3.01, 4.56, 3.83, 9.83, 10.52, 2.34, 4.29, 2.91, 3.09, 3, 5.18, 5.13, 5.06, 5.13, 4.72, 4.55, 12.31, 12.86, 8.08, 6.35, 8.43, 9.85, 10.16, 8.3, 5.99, 5.93, 3.79, 2.1, 1.22, 2.64, 1.87, 1.39, 1.94, 1.36, 2.3, 2.91, 2.62, 1.18, 3.41, 3.65, 7.68, 8.87, 8.95, 9.98, 8.4, 7.75, 8.63, 11.15, 10.28, 11.42, 9.37, 11.72, 9.32, 5.95, 7.12, 10.47, 7.89, 2.81, 1.77, 4.09, 2.01, 1.81, 2.85, 3.16, 3.05, 1.18, 0.89, 4.22, 3.68, 5.43, 5.18, 5.07, 5.39, 4.69, 2.39, 2.01, 1.82, 1.88, 1.6, 1.72, 2.61, 3.23, 2.47, 1.87, 6.8, 6.82, 3.97, 7.45, 6.49, 8.05, 5.75, 7.88, 8.39, 3.77, 8.42, 3.53, 7.53, 5.91, 10.47, 9.34, 3.89, 10.99, 8.05, 8.69, 0.82, 5.01, 4.19, 4.61, 7.36, 5.99, 4.66, 5.32, 8.31, 9.68, 6.24, 9.1, 2.47, 3.65, 9.79, 9.2, 7.09, 5.37, 3.65, 5.18, 3.81, 6.99, 6.85, 6.65, 2.71, 3.92, 11.03, 7.16, 2.22, 3.33, 7.86, 10.04, 5.86, 5.26, 6.38, 6.91, 4.08, 7.64, 6.74, 3.33, 6.21, 1.96, 4.5, 4.24, 4.76, 3.62, 1.14, 0.6, 1.08, 4.21, 0.26, 1.28, 1.43, 1.17, 1.59, 0.76, 1.27, 1.39, 1.23, 1.13, 1.13, 0.32, 1.24, 0.73, 2.19, 0.94, 0.7, 1.14, 0.87, 1.01, 0.58, 0.96, 0.23, 3.44, 2.15, 1.58, 2.58, 2.29, 1.2, 0.52, 2.87, 2.12, 0.61, 1.75, 0.95, 1.15, 0.98, 1.27, 0.98, 1.18, 3.52, 2.62, 1.49, 0.45, 0.97, 1.61, 2.16, 1.09, 1.43, 2.77, 0.71, 1.91, 1.57, 1.45, 1.13, 2.48, 2.93, 2.42, 0.62, 1.39, 4.41, 8.61, 1.06, 7.62, 5.4, 4.86, 4.37, 2.83, 1.44, 4.24, 0.65, 2.13, 4.5, 4.68, 2.08, 1.91, 2.64, 5.75, 4.34, 11.51, 9.08, 8.87, 7.06, 8.66, 12.05, 9.69, 7.3, 8.86, 10.63, 8.16, 9.99, 2.63, 3.19, 5.52, 4.99, 6.52, 4.32, 3.39, 5.53, 0, 0, 10.45, 9.73, 11.5, 11.3, 7.94, 8.6, 9.41, 10.11, 7.33, 3.35, 4.21, 1.93, 2.65, 9.69, 3.95, 1.74, 3.7, 4.28, 19.03, 7.41, 6.39, 5.77, 6.66, 6.86, 2.49, 5.84, 8.41, 4.16, 7.53, 6.15, 7.84, 8.85, 3.62, 4.91, 3.39, 7.16, 8.23, 9.02, 11.06, 10.79, 9.66, 10.64, 8.7, 11.17, 2.34, 5.6, 3.94, 8.31, 7.21, 9.68, 8.31, 9.47, 9.29, 10, 9.86, 10.9, 5.59, 4.25, 5.97, 5.51, 6.98, 12.01, 9.45, 11.8, 9.49, 11.2, 6.48, 12.04, 8.82, 4.66, 11.54, 10.99, 5.94, 7.02, 11.19, 9.3, 5.38, 5.8, 4.36, 5.67, 7.95, 8.81, 6.55, 3.75, 6.61, 6.12, 4.21, 5.44, 6.81, 5.63, 6.94, 6.82, 5.58, 7.35, 7.25, 5.86, 9.83, 9.77, 7.78, 7.04, 10.34, 9.85, 9.81, 4.94, 9.59, 8.17, 8.43, 5.83, 3.31, 2.96, 7.41, 8.2, 7.47, 7.34, 8.25, 7.58, 8.44, 9.28, 10.92, 9.63, 5.18, 2.85, 7.52, 7.22, 8.17, 8.81, 8.37, 10.18, 8.56, 3.89, 4.06, 6.49, 7.46, 10.22, 9.07, 11.76, 5.04, 8.43, 7.04, 7.2, 5.12, 7.56, 7.06, 7.22, 7.34, 6.76, 6.87, 3.4, 5.97, 10.16, 8.38, 8.79, 6.24, 7.54, 7.2, 8.13, 7.63, 7.78, 8.12, 7.56, 6.83, 6.2, 9.68, 8.59, 9.47, 8.07, 12.58, 11.98, 10.35, 9.88, 8.95, 8.29, 6.8, 7.69, 7.18, 6.2, 6.2, 6.31, 5.69, 6.39, 7.44, 7.11, 4.91, 7.01, 7.32, 5.59, 8.75, 8.95, 4.38, 7.8, 7.91, 4.76, 6.84, 3.37, 7.37, 8.14, 9.04, 11.23, 5.01, 8.8, 8.47, 4.17, 5.57, 8.24, 7.41, 5.46, 4.93, 9.4, 1.18, 7.78, 7.93, 4.48, 5.6, 6.54, 3.54, 7.29, 9.22, 2.34, 7.35, 7.2, 8.02, 2.53, 8.15, 5.58, 6.58, 4.92, 2.06, 4.75, 5.23, 4.54, 7.9, 11.49, 3.41, 7.99, 5.71, 8.27, 8.61, 5.28, 6.46, 9.49, 10.47, 6.33, 11.13, 5.83, 9.69, 9.74, 12.97, 13.08, 21.56, 16.81, 22.81, 29.5, 17.14, 13.18, 22.98, 18.48, 10.76, 7.13, 7, 9.67, 8.31, 4.97, 7.01, 10.48, 9.59, 10.18, 9.94, 9.73, 10.94, 10.66, 9.57, 11.47, 4, 3.39, 9.19, 10.61, 10.43, 11.09, 10.85, 10.71, 11.01, 8.61, 2.25, 6.84, 10.99, 10.77, 10.38, 10.85, 10, 10.31, 5.24, 5.29, 10.71, 11.54, 8.18, 7.71, 8.96, 11.4, 6.21, 6.6, 6.15, 11.8, 12.49, 8.08, 8.36, 6.28, 5.13, 6.86, 6.64, 7.3, 6.05, 10.76, 7.06, 6.24, 10.89, 6.53, 8.15, 1.58, 11.79, 9.3, 9.09, 10.17, 3.75, 9.72, 3.8, 9.84, 9.8, 4.85, 5.05, 8.12, 4.85, 5.49, 8.74, 6.03, 7.17, 9.21, 9.17, 10.77, 3.18, 10.55, 6.74, 10.61, 7.43, 10.58, 8.11, 10.6, 8.83, 5.71, 5.09, 9.82, 5.68, 8.23, 11.47, 12.1, 7.59, 8.84, 7.88, 8.25, 8.4, 8.62, 7.9, 10.32, 8.51, 11.9, 3.78, 11.1, 11.16, 11.55, 12.11, 12.76, 12.35, 0.62, 0.92, 1.56, 2.19, 3.23, 3.03, 4.56, 3.53, 3.39, 2.71, 2.85, 2.78, 1.17, 3.48, 1.35, 3.02, 0.86, 2.55, 3.22, 2.79, 0.61, 2.06, 2.53, 2.35, 1.71, 2.21, 2.11, 1.88, 1.99, 2.94, 2.69, 2.3, 1.6, 1.83, 1.95, 1.95, 2.06, 2.21, 2.6, 2.57, 2.92, 3.85, 3.31, 3.12, 3.19, 3.91, 2.71, 2.36, 2.82, 2.51, 4.13, 5.22, 3.67, 3.15, 2.77, 2.71, 2.98, 2.87, 1.92, 0.87, 1.19, 0.68, 0.16, 0.65, 1.55, 1.7, 2.28, 2.59, 1.49, 2.29, 0.87, 2.33, 2.07, 3.62, 0.87, 1.46, 1.88, 1.05, 0.39, 0.8, 0.56, 0.42, 0.42, 0.31, 6.31, 6.39, 2.86, 5.34, 0.92, 8.66, 15.77, 1.7, 7.38, 2.54, 3.04, 1.17, 1.09, 8.63, 6.88, 7.66, 6.34, 6.76, 3, 4.95, 2.06, 1.26, 0.83, 0.41, 1.2, 1.55, 1.53, 1.82, 2.26, 5.06, 3.5, 0.8, 1.75, 2.26, 2.69, 2.8, 2.41, 2.82, 1.1, 0.15, 1.76, 3.31, 3.61, 3.7, 3.45, 2.67, 2.6, 1.09, 0.38, 8.63, 1.32, 2.69, 3.8, 2.27, 2.71, 3.52, 5.37, 3.8, 1.04, 1.93, 3.14, 3.38, 3.15, 1.83, 2.98, 3.19, 3.17, 2.46, 1.26, 0.87, 2.29, 3.96, 5.03, 5.53, 5.14, 4.15, 2.49, 4.87, 4.26, 3.3, 1.73, 3.66, 3.44, 3.3, 3.82, 3.11, 2.25, 2.26, 2.44, 1.41, 2.64, 2.09, 2.88, 2.45, 2.41, 2.86, 2.57, 5.37, 4.48, 3.27, 3.83, 3.49, 3.53, 3.19, 1.54, 2.48, 3.62, 2.89, 2.49, 2.58, 1.48, 1.41, 2.66, 4.97, 3.78, 2.1, 1.89, 1.1, 1.21, 3.41, 1.97, 1.47, 3.31, 2.16, 1.33, 3.8, 5.2, 1.62, 5.81, 1.09, 2.03, 1.86, 2.45, 2.76, 2.03, 2.98, 2.69, 1.94, 1.12, 3.51, 1.69, 1.6, 2.78, 3.39, 4.63, 6.07, 6.97, 7.49, 2.76, 4.31, 4.98, 4.04, 3.08, 2.54, 1.81, 1.66, 2.38, 3.05, 2.13, 2.79, 2.24, 2.06, 2.17, 2, 1.36, 2.15, 1.49, 1.5, 3.1, 2.52, 2.93, 1.64, 1.5, 1.6, 1.55, 2.41, 2.17, 2.75, 1.33, 1.75, 3.41, 1.43, 2.67, 3.32, 3.14, 2.79, 3.47, 3.03, 2.27, 1.8, 2.72, 3.84, 2.9, 2.65, 2.43, 2.23, 1.64, 1.34, 1.39, 0.39, 0.78, 2.34, 2.25, 1.77, 1.74, 2.61, 1.72, 1.4, 1.65, 1.19, 1.26, 2.83, 2.01, 2.58, 1.87, 1.69, 1.7, 0.41, 2.75, 3.15, 3.15, 3.14, 4.83, 2.81, 3.08, 3.35, 2.64, 2.15, 0.78, 2.51, 2.54, 2.06, 2.36, 2.71, 2.26, 2, 2.85, 2.97, 1.69, 2.16, 2.63, 2.76, 4.44, 4.49, 1.46, 3.12, 4.12, 3.86, 3.96, 1.77, 1.5, 2.24, 1.51, 4.5, 3.32, 4.17, 3.55, 6.42, 4.15, 2.62, 2.64, 2.61, 5.41, 4.54, 3.56, 4.69, 3.93, 3.57, 1.48, 3.02, 3.36, 4.04, 3.46, 4.36, 1.9, 5.26, 4.91, 3.67, 2.53, 0.95, 0.51, 19.3, 23.5, 11.25, 23.23, 2.53, 17.11, 15.97, 16.08, 16.6, 28.3, 17.78, 14.71, 27.36, 11.16, 22.37, 7.35, 6.67, 9.28, 8.58, 10.39, 10.85, 9.8, 7.06, 6.19, 5.67, 5.09, 4.5, 4.03, 3.42, 2.87, 2.38, 7.23, 6.03, 5.41, 5.09, 1.94, 3.13, 2.99, 3.22, 2.07, 3.88, 2.22, 2.49, 3.11, 5.52, 2.95, 1.49, 2.34, 3.86, 4.43, 3.97, 4.96, 1.91, 2.15, 4.08, 4.89, 5.04, 2.97, 2.85, 2.63, 2.28, 0.83, 2.19, 3.04, 3.5, 0.34, 1.04, 4.08, 1.2, 2.13, 2.03, 1.87, 2.47, 1.53, 2.67, 1.56, 0.91, 4.12, 2.83, 2.46, 6.89, 2.94, 4.57, 3.47, 3.96, 4.6, 4.98, 3.11, 3.53, 3.91, 3.49, 5.99, 3.73, 8.34, 9.06, 5.54, 5.57, 6.37, 6.22, 7.65, 5.03, 3.96, 4.35, 3.57, 3.71, 3.58, 3.49, 2.49, 2.77, 3.17, 3.5, 3.5, 4.75, 4.68, 3.35, 1.81, 0.61, 3.77, 3.84, 3.63, 2.28, 2.63, 2.72, 3.25, 1.02, 3.87, 3.18, 3.1, 3.23, 3.29, 2.46, 2.2, 2, 1.33, 4.1, 3.29, 2.37, 3.8, 3.9, 3.72, 2.7, 2.89, 3.67, 3.47, 1.36, 4.2, 3.23, 2.08, 2.72, 3.18, 2.26, 3.54, 1.92, 2.2, 2.97, 3.8, 4.64, 4.85, 4.46, 4.75, 3.42, 3.3, 3.47, 3.22, 3.43, 3.23, 3.24, 1.68, 2.64, 2.48, 3.06, 3.29, 2.75, 3.66, 2.88, 2.51, 4.69, 4.08, 3.21, 2.41, 2.33, 3.39, 5.22, 8.47, 10.77, 7.68, 10.2, 9, 10.34, 9.78, 9.11, 5.9, 5.28, 4.29, 3.22, 3.64, 3.11, 3.21, 8.48, 3.05, 3.14, 7.05, 2.3, 8.18, 7.95, 7.03, 3.48, 4.18, 4.58, 9.42, 7.24, 6.34, 8.1, 7.04, 7.03, 5.39, 7.67, 4.35, 6.83, 4.32, 6.01, 8.27, 2.81, 3.9, 3.24, 3.8, 3.98, 5.2, 5.6, 5.79, 1.47, 3.97, 4.78, 5.01, 9.75, 3.36, 4.2, 10.69, 10.08, 2.07, 3.6, 5.23, 4.34, 8.33, 3.1, 2.14, 3.3, 5.86, 7.42, 4.87, 7.7, 8.04, 7.56, 2.58, 5.29, 5.33, 3.96, 8.4, 6.8, 6.91, 5.07, 3.17, 3.34, 2.31, 2.01, 2.09, 2.02, 3.16, 1.73, 3.29, 6.36, 3.37, 2.87, 4.7, 3.56, 5.33, 4.75, 3.63, 3.23, 2.33, 2.77, 4.85, 5, 4.69, 4.81, 6.37, 2.46, 2.46, 2.69, 4.88, 3.05, 5.76, 4.47, 3.22, 2.21, 3.35, 4.34, 3.79, 2.74, 5.8, 5.1, 4.4, 2.32, 7.12, 6.74, 4.59, 5.29, 1.07, 3.44, 4.17, 11.33, 7.37, 5.66, 2.09, 3.52, 5.66, 6.68, 8.76, 6.88, 5.14, 2.9, 2.32, 3.97, 4.09, 9.21, 8.29, 14.32, 13.25, 7.02, 8.01, 2, 4.51, 5.14, 3.15, 1.2, 4.46, 2.32, 0.56, 5.25, 4.73, 5.97, 4.72, 6.64, 4.54, 5.48, 7.35, 1.96, 6.44, 1.94, 7.83, 7.48, 2.02, 6.7, 5.49, 6.51, 2.52, 6.02, 5.99, 6.11, 7.98, 5.54, 5.47, 5.38, 9.93, 5.88, 5.79, 5.05, 4.48, 4.17, 4.25, 3.93, 4.86, 4.39, 1.27, 6.34, 7.52, 8.66, 7.03, 4.76, 7.49, 8.53, 9.23, 7.52, 6.96, 8.08, 3.33, 3.91, 8.25, 9.49, 5.82, 6.48, 4.02, 4.34, 5.73, 4.99, 5.1, 6.12, 5.69, 5.44, 6.6, 2.95, 3.92, 3.96, 6.19, 8.56, 5.77, 8.95, 6.23, 7.83, 5.59, 3.76, 6.02, 5.24, 6.51, 3.02, 6.11, 4.53, 5, 3.47, 5.06, 3.66, 3.1, 9.01, 11.77, 4.3, 4.4, 4.79, 4.05, 7.43, 6.93, 7.81, 5.67, 9.01, 4.93, 8.23, 10.11, 5.76, 6.89, 12.14, 10.28, 6.43, 5.86, 10.19, 6.47, 7.04, 6.73, 7.25, 7.61, 5.65, 5.78, 5.95, 3.76, 4.04, 10.53, 8.64, 7.45, 4.79, 7.35, 7.02, 7.09, 6.55, 9.52, 9.42, 6.26, 9.78, 10.63, 6.16, 7.06, 10.07, 10.57, 6.39, 6.77, 6.24, 11.35, 6.93, 11.43, 5.91, 12.15, 5.84, 11.76, 12.34, 8.79, 11.68, 9.73, 9.22, 11.1, 6.2, 6.65, 6.27, 7, 8.46, 8.54, 7.42, 4.97, 2.54, 7.51, 8.46, 7.23, 9.04, 5.1, 6.11, 7.36, 6.2, 6.44, 10.47, 8.58, 7.97, 6.86, 5.88, 6.37, 9.03, 4.31, 12.71, 7.82, 7.15, 9.94, 7.61, 7.95, 7.21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+    const talhaoAreasPorFazenda = {};
+    let areasIndex = 0;
+
+    const fazendaKeysOriginal = [
+        "101", "102", "105", "106", "108", "109", "111", "112", "113", "114", "115", "116", "117", "118", "120", "121", "122", "123", "124", "125", "126", "127", "128", "129", "130", "131", "134", "136", "138", "152", "154", "156", "159", "165", "166", "167", "176", "178", "181", "184", "194", "197", "198", "199", "200", "201", "202", "203", "204", "205", "206", "207", "208", "209", "210", "211", "213", "214", "215", "216", "217", "218", "219", "220", "221", "223", "224", "225", "226", "227", "228", "229", "230", "231", "234", "238", "239", "241", "242", "245", "246", "252", "253", "255", "256", "257", "266", "268", "271", "272", "273", "274", "275", "276", "277", "278", "279", "281", "282", "283", "284", "285", "287", "288", "289", "290", "291", "292", "293", "294", "295", "297", "298", "299", "300", "303", "317", "318", "319", "320", "327", "331", "333", "338", "339", "340", "341", "342", "344", "345", "347", "354", "355", "356", "357", "358", "359", "360", "361", "362", "363", "364", "365", "366", "367", "368", "372", "377", "380", "381", "383", "384", "385", "386", "387", "388", "389", "390", "391", "392", "393", "394", "396", "397", "398", "399", "400", "402", "404", "405", "406", "407", "501", "502", "503", "504", "505", "506", "507", "508", "509", "510", "540", "541", "542", "543", "544", "546", "549", "550", "551", "552", "553", "554", "555", "556", "558", "559", "560", "562", "565", "567", "568", "569", "601", "602", "603", "605", "607", "608", "609", "611", "618", "619", "622", "624", "627", "628", "629", "630", "631", "633", "634", "636", "637", "638", "639", "641", "642", "644", "645", "646", "647", "648", "649", "650", "651", "652", "653", "700", "708", "801", "905", "907", "909", "910", "911", "914", "915", "916", "917", "918", "919", "920", "922", "927", "928", "929", "930", "934", "937", "940", "950", "997", "999"
+    ];
+
+    for (const fazenda of fazendaKeysOriginal) {
+        if (fazendaTalhoes.hasOwnProperty(fazenda)) {
+            const [start, end] = fazendaTalhoes[fazenda];
+            const numTalhoes = end - start + 1;
+            talhaoAreasPorFazenda[fazenda] = areaData.slice(areasIndex, areasIndex + numTalhoes);
+            areasIndex += numTalhoes;
+        }
+    }
+
+    const areaTalhao666 = {
+        "101": 19.39, "102": 14.42, "105": 19.63, "106": 11.5, "108": 13.42,
+        "109": 20.13, "111": 19.52, "112": 23.2, "113": 7.16, "114": 10.17,
+        "115": 15.62, "116": 16.15, "117": 11.47, "118": 8.11, "120": 10.74,
+        "121": 15.48, "122": 23.84, "123": 18.57, "124": 14.26, "125": 23.32,
+        "126": 17.52, "127": 0.5, "128": 42.19, "129": 4.88, "130": 12.06,
+        "131": 15.3, "134": 20.84, "136": 13.07, "138": 21.13, "152": 6.93,
+        "154": 6.91, "156": 16.44, "159": 3, "165": 10.3, "166": 10.6,
+        "167": 17.17, "176": 15.08, "178": 31.41, "181": 3.6, "184": 17.18,
+        "194": 15.49, "197": 12.08, "198": 12.36, "199": 13.48, "200": 15.77,
+        "201": 10.66, "202": 21.41, "203": 10.39, "204": 4.61, "205": 15.88,
+        "206": 10.15, "207": 18.38, "208": 8.62, "209": 12.9, "210": 1.78,
+        "211": 15.8, "213": 12.18, "214": 6.62, "215": 13.54, "216": 6.5,
+        "217": 7.39, "218": 4.53, "219": 4.68, "220": 7.57, "221": 9.11,
+        "223": 8.5, "224": 6.25, "225": 15.27, "226": 14.11, "227": 5.92,
+        "228": 14.24, "229": 12.49, "230": 6.46, "231": 7.14, "234": 4.73,
+        "238": 15.12, "239": 13.19, "241": 14.14, "242": 12.44, "245": 10.82,
+        "246": 9.63, "252": 11.36, "253": 10.47, "255": 9.87, "256": 21.2,
+        "257": 23.61, "266": 6.35, "268": 19.17, "271": 4.97, "272": 10.91,
+        "273": 7.25, "274": 7.83, "275": 12.93, "276": 14.98, "277": 6.06,
+        "278": 11.53, "279": 10.07, "281": 15.77, "282": 11.79, "283": 8.91,
+        "284": 10.16, "285": 13.22, "287": 5.86, "288": 6.23, "289": 9.72,
+        "290": 8.14, "291": 13.52, "292": 16.12, "293": 20.31, "294": 19.66,
+        "295": 18.28, "297": 9.96, "298": 9.48, "299": 9, "300": 11.25,
+        "303": 8.47, "317": 11.75, "318": 15.49, "319": 11.39, "320": 9.34,
+        "327": 5.13, "331": 10.01, "333": 13.88, "338": 9.87, "339": 14.96,
+        "340": 12.8, "341": 11.16, "342": 12.03, "344": 6.5, "345": 18.75,
+        "347": 9.36, "354": 13.27, "355": 5.11, "356": 8.61, "357": 9.51,
+        "358": 8.16, "359": 9.08, "360": 10.38, "361": 19.25, "362": 13.94,
+        "363": 9.32, "364": 5.09, "365": 13.05, "366": 13.64, "367": 9, "368": 20.77,
+        "372": 13.87, "377": 11.51, "380": 16, "381": 28.51, "383": 8.9,
+        "384": 9.04, "385": 10.14, "386": 10.05, "387": 12.44, "388": 8.9,
+        "389": 10.79, "390": 13.65, "391": 15.64, "392": 9.08, "393": 9.3,
+        "394": 13.72, "396": 7.46, "397": 10.14, "398": 15.61, "399": 16.39,
+        "400": 10.37, "402": 18.86, "404": 5.91, "405": 10.35, "406": 9.7,
+        "407": 11.15, "501": 5.69, "502": 9.55, "503": 10.58, "504": 10.15,
+        "505": 7.17, "506": 11.56, "507": 11.44, "508": 8.85, "509": 8.33,
+        "510": 12.82, "540": 15.27, "541": 24.31, "542": 14.83, "543": 17.45,
+        "544": 36.58, "546": 17.83, "549": 8.38, "550": 19.86, "551": 25.11,
+        "552": 8.66, "553": 18.69, "554": 10.48, "555": 15.31, "556": 4.98,
+        "558": 14.52, "559": 7.93, "560": 14.81, "562": 6.72, "565": 6.84,
+        "567": 7.53, "568": 6.59, "569": 9.05, "601": 6.92, "602": 14.28,
+        "603": 26.68, "605": 13.08, "607": 12.64, "608": 31.04, "609": 21.25,
+        "611": 11.12, "618": 13.03, "619": 12.54, "622": 16.08, "624": 28.65,
+        "627": 9.83, "628": 16.33, "629": 6.94, "630": 16.04, "631": 5.26,
+        "633": 10.56, "634": 16.85, "636": 14.45, "637": 5.94, "638": 13.54,
+        "639": 7.27, "641": 10.26, "642": 10.92, "644": 11.46, "645": 11.49,
+        "646": 11.04, "647": 10.48, "648": 7.89, "649": 9.22, "650": 4.04,
+        "651": 7.85, "652": 5.86, "653": 7.12
+    };
+
+    const totalAreaFazenda = {};
+    for (const fazenda in fazendaTalhoes) {
+        const [start, end] = fazendaTalhoes[fazenda];
+        let total = 0;
+        if (talhaoAreasPorFazenda[fazenda]) {
+            total = talhaoAreasPorFazenda[fazenda].reduce((sum, area) => sum + area, 0);
+        }
+        if (areaTalhao666[fazenda]) {
+            total += areaTalhao666[fazenda];
+        }
+        totalAreaFazenda[fazenda] = total;
+    }
+
+    const osTemplate = document.getElementById('os-template');
+    const mainContainer = document.getElementById('main-container');
+
+    function initializeOS(osElement) {
+        const fazendaSelect = osElement.querySelector('.fazenda-select');
+        const insumoSelects = osElement.querySelectorAll('.insumo-select');
+        const talhaoSelects = osElement.querySelectorAll('.talhao-select');
+        const areaHaInputs = osElement.querySelectorAll('.area-ha-input');
+        const totalAreaInput = osElement.querySelector('.totalAreaInput');
+        const operacaoSelect = osElement.querySelector('.operacao-select');
+        const tipoCulturaSelect = osElement.querySelector('.planta-soca-select');
+
+        function populateFazendaSelect() {
+            fazendaKeysSorted.forEach(key => {
+                const option = document.createElement('option');
+                option.value = key;
+                option.textContent = `${key} ${fazendaNames[key]}`;
+                fazendaSelect.appendChild(option);
+            });
+        }
+        populateFazendaSelect();
+
+        function populateInsumoSelects() {
+            insumoSelects.forEach(select => {
+                select.innerHTML = '';
+                const defaultOption = document.createElement('option');
+                defaultOption.value = "";
+                defaultOption.textContent = "Selecione um insumo";
+                defaultOption.selected = true;
+                defaultOption.disabled = true;
+                select.appendChild(defaultOption);
+                insumos.forEach(insumo => {
+                    const option = document.createElement('option');
+                    option.value = insumo.value;
+                    option.textContent = insumo.text;
+                    select.appendChild(option);
+                });
+            });
+        }
+        populateInsumoSelects();
+
+        talhaoSelects.forEach(select => select.disabled = true);
+
+        function updateObjetoCusto() {
+            const selectedOperacao = operacaoSelect.value;
+            const selectedCultura = tipoCulturaSelect.value;
+            const objetoCustoInput = osElement.querySelector('.objetoCustoInput');
+
+            if (selectedOperacao && selectedCultura) {
+                const codigo = operacaoToCusto[selectedOperacao] ? operacaoToCusto[selectedOperacao][selectedCultura] : '';
+                objetoCustoInput.value = codigo;
+            } else {
+                objetoCustoInput.value = '';
+            }
+        }
+
+        function updateTalhaoOptions() {
+            const selectedFazenda = fazendaSelect.value;
+            
+            talhaoSelects.forEach(select => {
+                select.innerHTML = '';
+                select.disabled = true;
+            });
+            areaHaInputs.forEach(input => input.value = '');
+            totalAreaInput.value = '';
+            updateUtilizacao(osElement);
+
+            if (selectedFazenda && fazendaTalhoes[selectedFazenda]) {
+                const [start, end] = fazendaTalhoes[selectedFazenda];
+
+                talhaoSelects.forEach(select => {
+                    select.disabled = false;
+                    const todosOption = document.createElement('option');
+                    todosOption.value = 'todos';
+                    todosOption.textContent = 'TODOS';
+                    select.appendChild(todosOption);
+
+                    for (let talhaoNumber = start; talhaoNumber <= end; talhaoNumber++) {
+                        const option = document.createElement('option');
+                        option.value = talhaoNumber;
+                        option.textContent = talhaoNumber;
+                        select.appendChild(option);
+                    }
+
+                    const fazendaCode = parseInt(selectedFazenda);
+                    if (fazendaCode >= 101 && fazendaCode <= 653) {
+                        const talhao666Option = document.createElement('option');
+                        talhao666Option.value = '666';
+                        talhao666Option.textContent = '666';
+                        select.appendChild(talhao666Option);
+                    }
+                });
+            }
+        }
+
+        function formatTalhaoRange(talhoes) {
+            if (talhoes.length === 0) return '';
+
+            const normalTalhoes = talhoes.filter(t => t !== '666').map(Number).sort((a, b) => a - b);
+            const has666 = talhoes.includes('666');
+
+            let ranges = [];
+            if (normalTalhoes.length > 0) {
+                let start = normalTalhoes[0];
+                let end = normalTalhoes[0];
+
+                for (let i = 1; i < normalTalhoes.length; i++) {
+                    if (normalTalhoes[i] === end + 1) {
+                        end = normalTalhoes[i];
+                    } else {
+                        if (start === end) {
+                            ranges.push(start.toString());
+                        } else {
+                            ranges.push(`${start} ao ${end}`);
+                        }
+                        start = normalTalhoes[i];
+                        end = normalTalhoes[i];
+                    }
+                }
+
+                if (start === end) {
+                    ranges.push(start.toString());
+                } else {
+                    ranges.push(`${start} ao ${end}`);
+                }
+            }
+
+            if (has666) {
+                ranges.push('666');
+            }
+
+            return ranges.join(', ');
+        }
+        
+        // Função para calcular a área total
+        function calculateTotalArea() {
+            let totalAreaGeral = 0;
+            areaHaInputs.forEach(input => {
+                totalAreaGeral += parseFloat(input.value.replace(',', '.')) || 0;
+            });
+            return totalAreaGeral;
+        }
+
+        // Função para atualizar a área após a seleção de talhões E validar o limite
+        function updateAreaFromSelection(selectElement) {
+            const selectedFazenda = fazendaSelect.value;
+            if (!selectedFazenda) return;
+            
+            const [startTalhao] = fazendaTalhoes[selectedFazenda];
+            const fazendaMaxArea = totalAreaFazenda[selectedFazenda];
+            
+            let totalAreaSelecionada = 0;
+            const selectedTalhoesInThisColumn = Array.from(selectElement.selectedOptions).map(option => option.value);
+
+            selectedTalhoesInThisColumn.forEach(talhao => {
+                if (talhao === '666' && areaTalhao666[selectedFazenda]) {
+                    totalAreaSelecionada += areaTalhao666[selectedFazenda];
+                } else if (talhao !== 'todos') {
+                    const areaIndex = parseInt(talhao) - startTalhao;
+                    const areasDaFazenda = talhaoAreasPorFazenda[selectedFazenda];
+                    if (areasDaFazenda && areasDaFazenda[areaIndex] !== undefined && !isNaN(areasDaFazenda[areaIndex])) {
+                        totalAreaSelecionada += areasDaFazenda[areaIndex];
+                    }
+                }
+            });
+            
+            const areaInput = selectElement.closest('td').nextElementSibling.querySelector('.area-ha-input');
+            const otherAreasTotal = Array.from(areaHaInputs).filter(input => input !== areaInput).reduce((sum, input) => sum + (parseFloat(input.value.replace(',', '.')) || 0), 0);
+            const totalComNovaArea = otherAreasTotal + totalAreaSelecionada;
+
+            if (totalComNovaArea > fazendaMaxArea) {
+                alert(`A soma das áreas (${totalComNovaArea.toFixed(2).replace('.', ',')} ha) excede a área total da fazenda selecionada (${fazendaMaxArea.toFixed(2).replace('.', ',')} ha).`);
+                
+                // Limpa a seleção e o campo de área da coluna atual para evitar exceder o limite
+                Array.from(selectElement.options).forEach(opt => opt.selected = false);
+                areaInput.value = '0,00';
+                
+                // Recalcula o total apenas com as áreas que já estavam preenchidas
+                updateTotalArea();
+                return;
+            }
+
+            areaInput.value = totalAreaSelecionada.toFixed(2).replace('.', ',');
+            updateTotalArea();
+        }
+
+        // Função para atualizar a área total e validar
+        function updateTotalArea() {
+            let newTotalArea = 0;
+            areaHaInputs.forEach(input => {
+                newTotalArea += parseFloat(input.value.replace(',', '.')) || 0;
+            });
+            totalAreaInput.value = newTotalArea.toFixed(2).replace('.', ',');
+            updateUtilizacao(osElement);
+            osElement.querySelector('.os-status').textContent = 'Não Verificado';
+            osElement.querySelector('.os-status').classList.remove('verified');
+        }
+
+        // Função para lidar com a edição manual da área
+        function handleAreaInput(event) {
+            const lastEditedInput = event.target;
+            const previousValue = parseFloat(lastEditedInput.dataset.previousValue || '0'.replace(',', '.'));
+            let currentValue = parseFloat(lastEditedInput.value.replace(',', '.')) || 0;
+            
+            const totalAreaBeforeEdit = calculateTotalArea() - previousValue;
+            const fazenda = fazendaSelect.value;
+            const maxArea = fazenda ? totalAreaFazenda[fazenda] : Infinity;
+            
+            if (totalAreaBeforeEdit + currentValue > maxArea) {
+                alert(`A soma das áreas (${(totalAreaBeforeEdit + currentValue).toFixed(2).replace('.', ',')} ha) excede a área total da fazenda selecionada (${maxArea.toFixed(2).replace('.', ',')} ha).`);
+                currentValue = maxArea - totalAreaBeforeEdit;
+                lastEditedInput.value = currentValue > 0 ? currentValue.toFixed(2).replace('.', ',') : '0,00';
+            }
+            
+            lastEditedInput.dataset.previousValue = lastEditedInput.value.replace(',', '.');
+            updateTotalArea();
+        }
+        
+        // ... (código existente)
+
+function updateTalhaoText(selectElement) {
+    const todosOption = selectElement.querySelector('option[value="todos"]');
+    const selectedOptions = Array.from(selectElement.selectedOptions);
+    const selectedValues = selectedOptions.map(option => option.value);
+
+    // Verifica se "TODOS" foi o único item selecionado no clique atual
+    if (selectedValues.length === 1 && selectedValues[0] === 'todos') {
+        // Primeira função do "TODOS": selecionar todos os talhões
+        Array.from(selectElement.options).forEach(option => {
+            if (option.value !== 'todos') {
+                option.selected = true;
+            }
+        });
+        todosOption.selected = false;
+    } else if (selectedValues.includes('todos') && selectedOptions.length > 1) {
+        // Segunda função do "TODOS": desmarcar todos os talhões
+        Array.from(selectElement.options).forEach(option => {
+            option.selected = false;
+        });
+    }
+
+    const finalSelectedOptions = Array.from(selectElement.selectedOptions);
+    const finalSelectedValues = finalSelectedOptions.map(option => option.value);
+
+    const formattedRange = formatTalhaoRange(finalSelectedValues);
+    const talhaoSpan = selectElement.parentElement.querySelector('.talhao-code-span');
+    if (talhaoSpan) {
+        talhaoSpan.textContent = formattedRange;
+    }
+
+    updateAreaFromSelection(selectElement);
+}
+
+// ... (código restante)
+
+        function updateUtilizacao(osElement) {
+            const totalAreaInput = osElement.querySelector('.totalAreaInput');
+            const totalAreaValue = parseFloat(totalAreaInput.value.replace(',', '.')) || 0;
+            const insumoRows = osElement.querySelectorAll('table:nth-of-type(5) tbody tr');
+            const maquinaRows = osElement.querySelectorAll('table:nth-of-type(4) tbody tr');
+
+            insumoRows.forEach(row => {
+                const rendPhaInput = row.querySelector('.rend-p-ha-input');
+                const utilizacaoInput = row.querySelector('.utilizacao-input');
+                if (rendPhaInput && utilizacaoInput) {
+                    const handleRendPhaInput = () => {
+                        const rendPhaValue = parseFloat(rendPhaInput.value.replace(',', '.')) || 0;
+                        const result = rendPhaValue * totalAreaValue;
+                        utilizacaoInput.value = result.toFixed(2).replace('.', ',');
+                    };
+                    const handleUtilizacaoInput = () => {
+                        const utilizacaoValue = parseFloat(utilizacaoInput.value.replace(',', '.')) || 0;
+                        if (totalAreaValue > 0) {
+                            const result = utilizacaoValue / totalAreaValue;
+                            rendPhaInput.value = result.toFixed(5).replace('.', ','); // 5 casas decimais
+                        } else {
+                            rendPhaInput.value = '';
+                        }
+                    };
+                    rendPhaInput.removeEventListener('input', handleRendPhaInput);
+                    utilizacaoInput.removeEventListener('input', handleUtilizacaoInput);
+                    rendPhaInput.addEventListener('input', handleRendPhaInput);
+                    utilizacaoInput.addEventListener('input', handleUtilizacaoInput);
+                }
+            });
+
+            maquinaRows.forEach(row => {
+                const rendPhaInput = row.querySelector('td:nth-of-type(3) input');
+                const utilizacaoInput = row.querySelector('td:nth-of-type(4) input');
+                 if (rendPhaInput && utilizacaoInput) {
+                    const handleRendPhaInput = () => {
+                        const rendPhaValue = parseFloat(rendPhaInput.value.replace(',', '.')) || 0;
+                        const result = rendPhaValue * totalAreaValue;
+                        utilizacaoInput.value = result.toFixed(2).replace('.', ',');
+                    };
+                    const handleUtilizacaoInput = () => {
+                        const utilizacaoValue = parseFloat(utilizacaoInput.value.replace(',', '.')) || 0;
+                        if (totalAreaValue > 0) {
+                            const result = utilizacaoValue / totalAreaValue;
+                            rendPhaInput.value = result.toFixed(5).replace('.', ','); // 5 casas decimais
+                        } else {
+                            rendPhaInput.value = '';
+                        }
+                    };
+                    rendPhaInput.removeEventListener('input', handleRendPhaInput);
+                    utilizacaoInput.removeEventListener('input', handleUtilizacaoInput);
+                    rendPhaInput.addEventListener('input', handleRendPhaInput);
+                    utilizacaoInput.addEventListener('input', handleUtilizacaoInput);
+                }
+            });
+            
+            totalAreaInput.addEventListener('input', () => updateUtilizacao(osElement));
+        }
+
+        function updateResponsavelCode(selectElement) {
+            const span = selectElement.parentElement.querySelector('.responsavel-code-span');
+            if (span) span.textContent = selectElement.value || '';
+        }
+
+        function updateInsumoCode(selectElement) {
+            const span = selectElement.parentElement.querySelector('.insumo-code-span');
+            if (span) span.textContent = selectElement.value || '';
+        }
+
+        function updateMaquinaCode(selectElement) {
+            const span = selectElement.parentElement.querySelector('.maquina-code-span');
+            if (span) span.textContent = selectElement.value || '';
+        }
+
+        operacaoSelect.addEventListener('change', () => {
+            updateObjetoCusto();
+            osElement.querySelector('.os-status').textContent = 'Não Verificado';
+            osElement.querySelector('.os-status').classList.remove('verified');
+        });
+        tipoCulturaSelect.addEventListener('change', () => {
+            updateObjetoCusto();
+            osElement.querySelector('.os-status').textContent = 'Não Verificado';
+            osElement.querySelector('.os-status').classList.remove('verified');
+        });
+        
+        fazendaSelect.addEventListener('change', () => {
+            const fazendaSpan = osElement.querySelector('.fazenda-code-span');
+            fazendaSpan.textContent = fazendaSelect.value;
+            updateTalhaoOptions();
+            osElement.querySelectorAll('.talhao-code-span').forEach(span => span.textContent = '');
+            osElement.querySelectorAll('.area-ha-input').forEach(input => input.value = '');
+            osElement.querySelector('.os-status').textContent = 'Não Verificado';
+            osElement.querySelector('.os-status').classList.remove('verified');
+        });
+
+        talhaoSelects.forEach(select => {
+            select.addEventListener('change', (event) => {
+                updateTalhaoText(event.target);
+            });
+        });
+
+        areaHaInputs.forEach(input => {
+            input.addEventListener('focus', (event) => {
+                event.target.dataset.previousValue = event.target.value.replace(',', '.');
+            });
+            input.addEventListener('input', handleAreaInput);
+        });
+        
+        osElement.querySelectorAll('.maquina-select').forEach(select => {
+            select.addEventListener('change', (event) => {
+                updateMaquinaCode(event.target);
+                osElement.querySelector('.os-status').textContent = 'Não Verificado';
+                osElement.querySelector('.os-status').classList.remove('verified');
+            });
+        });
+
+        osElement.querySelectorAll('.insumo-select').forEach(select => {
+            select.addEventListener('change', (event) => {
+                updateInsumoCode(event.target);
+                osElement.querySelector('.os-status').textContent = 'Não Verificado';
+                osElement.querySelector('.os-status').classList.remove('verified');
+            });
+        });
+        
+        osElement.querySelector('.almoxarifado-input').addEventListener('input', () => {
+            osElement.querySelector('.os-status').textContent = 'Não Verificado';
+            osElement.querySelector('.os-status').classList.remove('verified');
+        });
+
+        osElement.querySelectorAll('.tipo-operacao-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('change', () => {
+                osElement.querySelector('.os-status').textContent = 'Não Verificado';
+                osElement.querySelector('.os-status').classList.remove('verified');
+            });
+        });
+
+        osElement.querySelector('.responsavel-select').addEventListener('change', () => {
+            osElement.querySelector('.os-status').textContent = 'Não Verificado';
+            osElement.querySelector('.os-status').classList.remove('verified');
+        });
+
+        updateUtilizacao(osElement);
+    }
+
+    function addOS() {
+        const newOs = osTemplate.cloneNode(true);
+        newOs.id = '';
+        mainContainer.appendChild(newOs);
+        initializeOS(newOs);
+    }
+
+    function removeOS(button) {
+        const osContainer = button.closest('.os-container');
+        if (document.querySelectorAll('.os-container').length > 1) {
+            if (confirm("Tem certeza que deseja excluir esta O.S.?")) {
+                osContainer.remove();
+            }
+        } else {
+            alert("Não é possível excluir a última O.S.");
+        }
+    }
+
+    // ... (código existente)
+
+function addInsumo() {
+    const code = prompt("Digite o código do novo insumo:");
+    if (!code) return;
+    const name = prompt("Digite o nome do novo insumo:");
+    if (!name) return;
+
+    const newInsumo = { value: code, text: name };
+    insumos.push(newInsumo);
+    insumos.sort((a, b) => a.text.localeCompare(b.text));
+
+    const allInsumoSelects = document.querySelectorAll('.insumo-select');
+    allInsumoSelects.forEach(select => {
+        // Armazena o valor selecionado antes de reconstruir a lista
+        const currentSelectedValue = select.value;
+        select.innerHTML = '';
+        const defaultOption = document.createElement('option');
+        defaultOption.value = "";
+        defaultOption.textContent = "Selecione um insumo";
+        defaultOption.selected = true;
+        defaultOption.disabled = true;
+        select.appendChild(defaultOption);
+
+        insumos.forEach(insumo => {
+            const option = document.createElement('option');
+            option.value = insumo.value;
+            option.textContent = insumo.text;
+            select.appendChild(option);
+        });
+
+        // Reaplica o valor selecionado se ele ainda existir
+        if (currentSelectedValue) {
+            select.value = currentSelectedValue;
+        }
+    });
+
+    alert(`Insumo "${name}" (código ${code}) adicionado com sucesso a todas as O.S.`);
+}
+
+// ... (código restante)
+
+    function verifyAllOS() {
+        const osContainers = document.querySelectorAll('.os-container');
+        let allVerified = true;
+
+        osContainers.forEach(osElement => {
+            const statusSpan = osElement.querySelector('.os-status');
+            const requiredFields = [
+                osElement.querySelector('.objetoCustoInput'),
+                osElement.querySelector('.operacao-select'),
+                osElement.querySelector('.data-input'),
+                osElement.querySelector('.data-inicial-input'),
+                osElement.querySelector('.data-final-input'),
+                osElement.querySelector('.almoxarifado-input'),
+                osElement.querySelector('.fazenda-select'),
+                osElement.querySelector('.responsavel-select')
+            ];
+
+            const tipoOperacaoChecked = osElement.querySelectorAll('.tipo-operacao-checkbox:checked').length > 0;
+            const talhaoSelected = Array.from(osElement.querySelectorAll('.talhao-select')).some(select => select.value !== "");
+            const maquinaSelected = Array.from(osElement.querySelectorAll('.maquina-select')).some(select => select.value !== "");
+            const insumoSelected = Array.from(osElement.querySelectorAll('.insumo-select')).some(select => select.value !== "");
+            
+            let hasEmptyField = false;
+            for (const field of requiredFields) {
+                if (!field.value || field.value === "") {
+                    hasEmptyField = true;
+                    break;
+                }
+            }
+
+            if (hasEmptyField || !tipoOperacaoChecked || !talhaoSelected || !maquinaSelected || !insumoSelected) {
+                allVerified = false;
+                statusSpan.textContent = 'Não Verificado';
+                statusSpan.classList.remove('verified');
+            } else {
+                statusSpan.textContent = 'Verificado';
+                statusSpan.classList.add('verified');
+            }
+        });
+
+        if (allVerified) {
+            alert("Todas as O.S. foram verificadas com sucesso!");
+        } else {
+            alert("Por favor, preencha todos os campos obrigatórios em cada O.S. antes de verificar.");
+        }
+    }
+
+    function printAll() {
+    const osContainers = document.querySelectorAll('.os-container');
+    let allVerified = true;
+    osContainers.forEach(osElement => {
+        if (!osElement.querySelector('.os-status').classList.contains('verified')) {
+            allVerified = false;
+        }
+    });
+
+    if (!allVerified) {
+        alert("A impressão só é permitida após a verificação de todas as O.S. Por favor, clique em 'Verificar OS's' para continuar.");
+        return;
+    }
+
+    document.querySelectorAll('.no-print').forEach(el => el.style.display = 'none');
+    osContainers.forEach((container, index) => {
+        if (index % 2 !== 0 && index < osContainers.length - 1) {
+            const pageBreak = document.createElement('div');
+            pageBreak.style.pageBreakAfter = 'always';
+            container.parentNode.insertBefore(pageBreak, container.nextSibling);
+        }
+    });
+    
+    // Oculta inputs de área com valor "0,00" e exibe o texto em branco
+    const areaInputs = document.querySelectorAll('.area-ha-input');
+    areaInputs.forEach(input => {
+        const value = input.value;
+        const parentTd = input.closest('td');
+        if (parentTd) {
+            if (value === "0,00" || value === "0") {
+                const span = document.createElement('span');
+                span.textContent = '';
+                span.className = 'area-print';
+                input.parentNode.replaceChild(span, input);
+            } else {
+                const span = document.createElement('span');
+                span.textContent = value;
+                span.className = 'area-print';
+                input.parentNode.replaceChild(span, input);
+            }
+        }
+    });
+
+    window.print();
+}
+
+window.addEventListener('afterprint', () => {
+    document.querySelectorAll('div[style="page-break-after: always;"]').forEach(el => el.remove());
+    document.querySelectorAll('.no-print').forEach(el => el.style.display = 'flex');
+
+    document.querySelectorAll('.os-container').forEach(osElement => {
+        osElement.querySelectorAll('select').forEach(select => {
+            select.style.display = 'block';
+        });
+        osElement.querySelectorAll('.hidden-span').forEach(span => {
+            span.style.display = 'none';
+        });
+
+        osElement.querySelectorAll('.observacao-print').forEach(span => {
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.value = span.textContent;
+            input.className = 'observacao-input';
+            span.parentNode.replaceChild(input, span);
+        });
+
+        osElement.querySelectorAll('.observacao-input-rodape').forEach(span => {
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.value = span.textContent;
+            input.className = 'observacao-input-rodape';
+            span.parentNode.replaceChild(input, span);
+        });
+
+        osElement.querySelectorAll('.talhao-code-span').forEach(span => {
+            span.style.display = 'none';
+            const select = span.parentElement.querySelector('.talhao-select');
+            if (select) {
+                select.style.display = 'block';
+            }
+        });
+        
+        // Restaura os inputs de área
+        osElement.querySelectorAll('.area-print').forEach(span => {
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.className = 'area-ha-input';
+            input.value = span.textContent;
+            span.parentNode.replaceChild(input, span);
+        });
+    });
+});
+
+    window.addEventListener('beforeprint', () => {
+        document.querySelectorAll('.os-container').forEach(osElement => {
+            osElement.querySelectorAll('.operacao-select, .fazenda-select, .responsavel-select, .planta-soca-select').forEach(select => {
+                select.style.display = 'none';
+                const parentTd = select.closest('td');
+                if (parentTd) {
+                    const spanClass = `.${select.className.replace(' ', '-').toLowerCase().replace('-select', '-code-span')}`;
+                    const codeSpan = parentTd.querySelector(spanClass);
+                    if (codeSpan) {
+                        codeSpan.textContent = select.value || '';
+                        codeSpan.style.display = 'inline-block';
+                    }
+                }
+            });
+            
+            osElement.querySelectorAll('.insumo-select').forEach(select => {
+                select.style.display = 'none';
+                const parentTd = select.closest('td');
+                if (parentTd) {
+                    const codeSpan = parentTd.querySelector('.insumo-code-span');
+                    if (codeSpan) {
+                        codeSpan.textContent = select.value || '';
+                        codeSpan.style.display = 'inline-block';
+                    }
+                }
+            });
+            
+            osElement.querySelectorAll('.maquina-select').forEach(select => {
+                select.style.display = 'none';
+                const parentTd = select.closest('td');
+                if (parentTd) {
+                    const codeSpan = parentTd.querySelector('.maquina-code-span');
+                    if (codeSpan) {
+                        codeSpan.textContent = select.value || '';
+                        codeSpan.style.display = 'inline-block';
+                    }
+                }
+            });
+
+            osElement.querySelectorAll('.talhao-select').forEach(select => {
+                select.style.display = 'none';
+                const talhaoSpan = select.parentElement.querySelector('.talhao-code-span');
+                if (talhaoSpan) {
+                    talhaoSpan.style.display = 'inline-block';
+                }
+            });
+
+            osElement.querySelectorAll('.observacao-input').forEach(input => {
+                const span = document.createElement('span');
+                span.textContent = input.value;
+                span.className = 'observacao-print';
+                input.parentNode.replaceChild(span, input);
+            });
+
+            osElement.querySelectorAll('.observacao-input-rodape').forEach(input => {
+                const span = document.createElement('span');
+                span.textContent = input.value;
+                span.className = 'observacao-print-rodape';
+                input.parentNode.replaceChild(span, input);
+            });
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        initializeOS(osTemplate);
+    });
+    </script>
+</body>
+
+</html>
