@@ -2,7 +2,7 @@ const CACHE_NAME = 'agrovvale-os-cache-v1';
 const urlsToCache = [
   './',
   './index.html',
-  './Logo-Site-Agrovale.png',
+  './Agrovale.png',
   './manifest.json'
 ];
 
@@ -26,4 +26,5 @@ self.addEventListener('fetch', event => {
         return fetch(event.request);
       })
   );
+
 });
