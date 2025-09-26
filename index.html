@@ -5,15 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Solicitação de Abertura de O.S. - AGROVALE</title>
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#5cb85c">
-
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 20px;
             background-color: #f0f0f0;
+            /* Aumentando a fonte base */
+            font-size: 14px; 
         }
 
         .container {
@@ -71,7 +70,8 @@
         td {
             padding: 5px;
             text-align: left;
-            font-size: 12px;
+            /* Aumentando o tamanho da fonte das células */
+            font-size: 16px; 
             vertical-align: top;
         }
 
@@ -88,6 +88,8 @@
             outline: none;
             padding: 2px;
             box-sizing: border-box;
+            /* Garante que o tamanho da fonte dos inputs seja o mesmo da célula */
+            font-size: 16px; 
         }
         
         .os-container select[multiple] {
@@ -131,7 +133,7 @@
         /* Estilos para a impressão */
         @media print {
             body {
-                /* Definindo a escala de 70% */
+                /* Mantém o zoom para melhor ajuste na impressão */
                 zoom: 50%;
             }
 
@@ -140,12 +142,10 @@
             }
 
             .os-container {
-                /* Garante que a OS não seja cortada entre páginas */
                 page-break-inside: avoid;
             }
 
             .os-container:nth-of-type(2n) {
-                /* Quebra de página após cada segunda OS */
                 page-break-after: always;
             }
 
@@ -154,16 +154,13 @@
             }
 
             .area-ha-input {
-                /* Oculta os inputs de área na impressão */
                 display: none;
             }
             
             .area-print {
-                /* Exibe o span com a área, que pode estar em branco */
                 display: block;
             }
 
-            /* Removendo a quebra de página se for a última OS ou a penúltima OS */
             .os-container:last-of-type {
                 page-break-after: auto;
             }
@@ -1552,6 +1549,7 @@
 </body>
 
 </html>
+
 
 
 
