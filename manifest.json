@@ -10,7 +10,7 @@
     {
       "src": "Agrovale.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "Agrovale/png"
     },
     {
       "src": "Agrovale.png",
@@ -20,3 +20,4 @@
   ]
 
 }
+
