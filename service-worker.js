@@ -2,7 +2,7 @@ const CACHE_NAME = 'agrovvale-os-cache-v1';
 const urlsToCache = [
   './',
   './index.html',
-  './Agrovale.png',
+  './Agrovale-512.jpg', // CORRIGIDO: Substituído Agrovale.png pelo arquivo real
   './manifest.json'
 ];
 
@@ -28,5 +28,6 @@ self.addEventListener('fetch', event => {
   );
 
 });
+
 
 
