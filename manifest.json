@@ -1,6 +1,6 @@
 {
-  "name": "Agrovale O.S.",
-  "short_name": "Agrovale",
+  "name": "Solicitação de O.S.",
+  "short_name": "O.S - Aplicação de Insumos",
   "description": "Aplicativo para criação de Ordens de Serviço da Agrovale.",
   "start_url": "./index.html",
   "display": "standalone",
