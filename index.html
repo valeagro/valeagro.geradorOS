@@ -593,20 +593,18 @@
     </div>
 
     <script>
-        // Registrar o Service Worker
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./service-worker.js')
-// OU, de forma mais simples:
-//             navigator.serviceWorker.register('service-worker.js')
-                    .then(registration => {
-                        console.log('Service Worker registrado com sucesso:', registration);
-                    })
-                    .catch(error => {
-                        console.log('Falha no registro do Service Worker:', error);
-                    });
+        // Trecho do index.html
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./service-worker.js') 
+            .then(registration => {
+                console.log('Service Worker registrado com sucesso:', registration);
+            })
+            .catch(error => {
+                console.log('Falha no registro do Service Worker:', error);
             });
-        }
+    });
+}
     const operacaoToCusto = {
         "464": { planta: "702", soca: "703" },
         "465": { planta: "1635", soca: "1636" },
@@ -1551,6 +1549,7 @@
 </body>
 
 </html>
+
 
 
 
