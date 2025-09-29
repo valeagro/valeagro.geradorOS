@@ -2,8 +2,11 @@ const CACHE_NAME = 'agrovvale-os-cache-v1';
 const urlsToCache = [
   './',
   './index.html',
-  './Agrovale-512.png', // CORRIGIDO: Substituído Agrovale.png pelo arquivo real
-  './manifest.json'
+  // Inclusão dos ícones .png que o manifest espera
+  './Agrovale-192.png',
+  './Agrovale-512.png',
+  './manifest.json', // Adicionado o prefixo './' para garantir o caminho correto.
+  './Logo-Site-Agrovale.png' // Incluindo o logo do header, que também é um asset crítico.
 ];
 
 self.addEventListener('install', event => {
@@ -28,7 +31,3 @@ self.addEventListener('fetch', event => {
   );
 
 });
-
-
-
-
