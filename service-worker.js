@@ -1,13 +1,12 @@
 const CACHE_NAME = 'agrovvale-os-cache-v1';
 const urlsToCache = [
-  './', // A URL raiz
+  './',
   './index.html',
-  // ÍCONES: O manifest espera PNGs
-  './Agrovale-192.png', // Verifique se está nomeado exatamente assim
-  './Agrovale-512.png', // Verifique se está nomeado exatamente assim
+  // Ícones renomeados
+  './agrovale192.png',
+  './agrovale512.png',
   './manifest.json',
-  // LOGO USADO NO HEADER:
-  './Logo-Site-Agrovale.png' // Verifique se está nomeado exatamente assim
+  './Logo-Site-Agrovale.png' // Mantendo o nome do logo do header
 ];
 
 self.addEventListener('install', event => {
@@ -15,13 +14,10 @@ self.addEventListener('install', event => {
     caches.open(CACHE_NAME)
       .then(cache => {
         console.log('Cache pre-preenchido');
-        // Se algum arquivo desta lista não for encontrado (404),
-        // a instalação falhará, e a instalação do PWA será impedida.
         return cache.addAll(urlsToCache);
       })
       .catch(error => {
         console.log('Falha na instalação/caching do Service Worker:', error);
-        // Exibe qual arquivo específico falhou
         throw error; 
       })
   );
